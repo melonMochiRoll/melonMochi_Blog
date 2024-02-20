@@ -11,7 +11,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
-    alias: {},
+    alias: {
+      '@Pages': path.resolve(__dirname, 'src/pages/'),
+    },
   },
   module: {
     rules: [

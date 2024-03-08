@@ -1,11 +1,11 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import MainPage from '@Pages/MainPage';
+import Home from '@Pages/Home';
 
 const MainRouter = createBrowserRouter([
   {
     path: '/',
-    element: <MainPage />,
+    element: <Home />,
   },
 ]);
 

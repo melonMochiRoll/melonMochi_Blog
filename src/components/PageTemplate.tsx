@@ -8,16 +8,16 @@ interface PageTemplateProps {
 
 const PageTemplate: FC<PageTemplateProps> = ({ children }) => {
   return (
-    <Block>
+    <Div>
       <Header />
       {children}
-    </Block>
+    </Div>
   );
 };
 
 export default PageTemplate;
 
-const Block = styled.div`
+const Div = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;

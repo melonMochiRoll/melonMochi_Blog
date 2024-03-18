@@ -2,12 +2,17 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import mainBgImage from '@Assets/images/main_background.jpg';
 import HeaderNavigator from '@Components/HeaderNavigator';
+import Tags from '@Components/Tags';
 
 const ListHeader: FC = () => {
   return (
     <Block>
       <Cover>
         <HeaderNavigator />
+        <ListInfo>
+          <Title>최근 글</Title>
+        </ListInfo>
+        <Tags />
       </Cover>
     </Block>
   );
@@ -29,5 +34,22 @@ const Cover = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  padding-bottom: 40px;
   background-color: rgba(0, 0, 0, 0.5);
+`;
+
+const ListInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+  height: 100%;
+`;
+
+const Title = styled.h1`
+  font-size: 64px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
 `;

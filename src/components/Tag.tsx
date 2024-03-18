@@ -36,15 +36,15 @@ const Article = styled.article<{ checked: boolean }>`
   color: ${({ checked }) => checked ? '#fff' : '#000'};
   font-size: 14px;
   font-weight: 600;
-  border: 2px solid ${({ checked }) => checked ? '#4169E1' : '#868e96'};
+  border: 2px solid ${({ checked }) => checked ? '#01a020' : '#868e96'};
   border-radius: 25px;
   padding: 8px 10px 8px 15px;
-  background-color: ${({ checked }) => checked ? '#4169E1' : '#fff'};
+  background-color: ${({ checked }) => checked ? '#01a020' : '#fff'};
   cursor: pointer;
   user-select: none;
   gap: 4px;
 
   &:hover {
-    border: 2px solid #4169E1;
+    border: 2px solid #01a020;
   }
 `;

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import Header from '@Containers/Header';
+import ListHeader from '@Containers/ListHeader';
 
 interface PageTemplateProps {
   children: React.ReactNode,
@@ -9,7 +9,7 @@ interface PageTemplateProps {
 const PageTemplate: FC<PageTemplateProps> = ({ children }) => {
   return (
     <Div>
-      <Header />
+      <ListHeader />
       {children}
     </Div>
   );

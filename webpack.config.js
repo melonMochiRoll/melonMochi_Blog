@@ -47,6 +47,10 @@ module.exports = {
         type: 'asset/resource',
       },
       {
+        test: /\.css$/i,
+        type: 'asset/resource',
+      },
+      {
         test: /\.md$/i,
         type: 'asset/resource',
       },

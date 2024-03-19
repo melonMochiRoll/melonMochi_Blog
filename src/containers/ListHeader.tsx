@@ -11,8 +11,8 @@ const ListHeader: FC = () => {
         <HeaderNavigator />
         <ListInfo>
           <Title>최근 글</Title>
+          <Tags />
         </ListInfo>
-        <Tags />
       </Cover>
     </Block>
   );
@@ -31,10 +31,10 @@ const Block = styled.header`
 const Cover = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  padding-bottom: 40px;
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -43,8 +43,10 @@ const ListInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 700px;
+  width: 60%;
   height: 100%;
+  padding-bottom: 40px;
+  gap: 50px;
 `;
 
 const Title = styled.h1`

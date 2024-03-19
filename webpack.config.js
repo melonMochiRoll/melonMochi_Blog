@@ -48,7 +48,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        type: 'asset/resource',
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.md$/i,

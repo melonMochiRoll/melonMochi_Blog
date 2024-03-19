@@ -15,3 +15,6 @@ declare module "*.gif";
 
 // markdown
 declare module "*.md";
+
+// styles
+declare module "*.css";

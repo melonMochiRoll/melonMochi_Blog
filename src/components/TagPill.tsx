@@ -23,13 +23,13 @@ const Block = styled.div`
   color: #fff;
   font-size: 14px;
   font-weight: 600;
-  border: 2px solid #01a020;
+  border: 2px solid #00AF22;
   border-radius: 25px;
   padding: 8px 15px;
-  background-color: #01a020;
+  background-color: #00AF22;
   gap: 4px;
 
   &:hover {
-    border: 2px solid #01a020;
+    border: 2px solid #00AF22;
   }
 `;

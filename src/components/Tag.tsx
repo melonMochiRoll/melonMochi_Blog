@@ -17,20 +17,20 @@ const Tag: FC<TagProps> = ({
   };
 
   return (
-    <Article
+    <Block
       checked={checked}
       onClick={onClick}>
       {tagName}
       {checked ?
         <CheckIcon fontSize='small' /> : 
         <AddIcon fontSize='small' sx={{ color: '#495057' }} />}
-    </Article>
+    </Block>
   );
 };
 
 export default Tag;
 
-const Article = styled.article<{ checked: boolean }>`
+const Block = styled.div<{ checked: boolean }>`
   display: flex;
   align-items: center;
   color: ${({ checked }) => checked ? '#fff' : '#000'};

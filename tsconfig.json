@@ -18,6 +18,7 @@
       "@Components/*": ["src/components/*"],
       "@Containers/*": ["src/containers/*"],
       "@Pages/*": ["src/pages/*"],
+      "@Typings/*": ["src/typings/*"],
     },
   }
 }

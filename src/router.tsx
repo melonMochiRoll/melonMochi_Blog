@@ -10,7 +10,7 @@ const MainRouter = createBrowserRouter([
       element: <MainPage />,
     },
     {
-      path: 'post/:fileName',
+      path: 'post/:id',
       element: <PostPage />,
     },
     {

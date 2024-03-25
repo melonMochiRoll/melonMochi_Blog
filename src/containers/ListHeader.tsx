@@ -2,16 +2,34 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import mainBgImage from '@Assets/images/main_background.jpg';
 import HeaderNavigator from '@Components/HeaderNavigator';
-import Tags from '@Components/Tags';
+import Tag from '@Components/Tag';
+import { ETags } from '@Typings/post';
 
-const ListHeader: FC = () => {
+interface ListHeaderProps {
+  tags: ETags[],
+};
+
+const ListHeader: FC<ListHeaderProps> = ({
+  tags,
+}) => {
   return (
     <Block>
       <Cover>
         <HeaderNavigator />
         <ListInfo>
           <Title>최근 글</Title>
-          <Tags />
+          <Section>
+            <TitleSection>
+              <H2>Tags</H2>
+            </TitleSection>
+            <TagsSection>
+              {tags.map((tag: string, idx: number) =>
+                <Tag
+                  key={idx}
+                  tagName={tag} />
+              )}
+            </TagsSection>
+          </Section>
         </ListInfo>
       </Cover>
     </Block>
@@ -54,4 +72,31 @@ const Title = styled.h1`
   font-weight: 800;
   color: #fff;
   margin: 0;
+`;
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
+const TitleSection = styled.section`
+  padding: 20px;
+`;
+
+const H2 = styled.h2`
+  font-size: 30px;
+  color: #fff;
+  margin: 0;
+`;
+
+const TagsSection = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0 20px;
+  gap: 8px;
 `;

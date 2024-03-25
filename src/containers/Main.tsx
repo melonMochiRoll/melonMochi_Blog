@@ -23,11 +23,8 @@ const Main: FC<MainProps> = ({
                 <TagDisplay key={idx}>{tag}</TagDisplay>
               )}
             </TagInfo>
-            <Info onClick={() => navigate(`post/${post.id}`)}>
-              <Title>{post.title}</Title>
-              <Paragraph>{post.preview}</Paragraph>
-              <CreatedAt>{post.createdAt}</CreatedAt>
-            </Info>
+            <Title onClick={() => navigate(`posts/${post.fileName}`)}>{post.title}</Title>
+            <CreatedAt>{post.createdAt}</CreatedAt>
           </Article>)
       }
     </Posts>
@@ -84,29 +81,14 @@ const TagDisplay = styled.div`
   }
 `;
 
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 15px;
+const Title = styled.h1`
+  font-size: 36px;
+  margin: 0;
+  cursor: pointer;
 
   &:hover {
     color: #29629C;
   }
-`;
-
-const Title = styled.h1`
-  font-size: 32px;
-  margin: 0;
-  cursor: pointer;
-`;
-
-const Paragraph = styled.p`
-  display: flex;
-  flex-direction: column;
-  font-size: 18px;
-  margin: 0;
 `;
 
 const CreatedAt = styled.span`

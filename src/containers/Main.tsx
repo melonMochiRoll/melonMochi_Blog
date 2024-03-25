@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
-import { ETags, TPostInfo } from '@Typings/post';
+import { TPostInfo } from '@Typings/post';
 
 interface MainProps {
   list: TPostInfo[];
@@ -19,7 +19,7 @@ const Main: FC<MainProps> = ({
           <Article
             key={idx}>
             <TagInfo>
-              {post.tags?.map((tag: ETags, idx: number) =>
+              {post.tags?.map((tag: string, idx: number) =>
                 <TagDisplay key={idx}>{tag}</TagDisplay>
               )}
             </TagInfo>

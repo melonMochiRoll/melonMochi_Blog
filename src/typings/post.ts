@@ -5,9 +5,8 @@ export const enum ETags {
 };
 
 export type TPostInfo = {
-  id: number,
+  fileName: string,
   title: string,
   tags: ETags[],
-  preview: string,
   createdAt: string,
 };

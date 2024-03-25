@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ETags, TPostInfo } from '@Typings/post';
 
 interface MainProps {
-  list: any;
+  list: TPostInfo[];
 };
 
 const Main: FC<MainProps> = ({

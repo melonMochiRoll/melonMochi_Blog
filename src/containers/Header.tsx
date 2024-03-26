@@ -5,8 +5,27 @@ import HeaderNavigator from '@Components/HeaderNavigator';
 import Tag from '@Components/Tag';
 import { TAGLIST } from '@Posts/index';
 
-const Header: FC = () => {
+interface HeaderProps {
+  selectTags: string[];
+  setSelectTags: React.Dispatch<React.SetStateAction<string[]>>;
+};
+
+const Header: FC<HeaderProps> = ({
+  selectTags,
+  setSelectTags,
+}) => {
   const tags = Object.values(TAGLIST);
+
+  const addTag = (tag: string) => {
+    setSelectTags((prev) => [...prev, tag]);
+  };
+
+  const removeTag = (tag: string) => {
+    setSelectTags((prev) => {
+      const idx = prev.findIndex((ele) => ele === tag);
+      return [...prev.slice(0, idx), ...prev.slice(idx + 1, prev.length)];
+    });
+  };
 
   return (
     <Block>
@@ -22,7 +41,9 @@ const Header: FC = () => {
               {tags.map((tag: string, idx: number) =>
                 <Tag
                   key={idx}
-                  tagName={tag} />
+                  tagName={tag}
+                  addTag={addTag}
+                  removeTag={removeTag} />
               )}
             </TagsSection>
           </Section>

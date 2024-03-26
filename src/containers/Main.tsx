@@ -4,18 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import { TPostInfo } from '@Typings/post';
 
 interface MainProps {
-  list: TPostInfo[];
+  posts: TPostInfo[];
 };
 
 const Main: FC<MainProps> = ({
-  list,
+  posts,
 }) => {
   const navigate = useNavigate();
 
   return (
     <Posts>
       {
-        list.map((post: TPostInfo, idx: number) => 
+        posts.map((post: TPostInfo, idx: number) => 
           <Article
             key={idx}>
             <TagInfo>

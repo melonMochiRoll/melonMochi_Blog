@@ -22,6 +22,7 @@ const Main: FC<MainProps> = ({
             post={post}
             navigate={() => navigate(`posts/${post.fileName}`)}/>)
       }
+      <LoadMore>Load More</LoadMore>
     </Posts>
   );
 };
@@ -41,5 +42,19 @@ const Posts = styled.main`
 `;
 
 const LoadMore = styled.button`
+  font-size: 24px;
+  font-weight: 600;
+  padding: 10px 15px;
+  margin: 40px 0;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.1s linear;
 
+  &:hover {
+    color: #fff;
+    background-color: #f94449;
+    border: 1px solid #f94449;
+  }
 `;

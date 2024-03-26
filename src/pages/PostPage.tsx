@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 const PostPage: FC = () => {
   const { fileName } = useParams();
-  const { info, content } = require(`@Assets/posts/${fileName}`);
+  const { info, content } = require(`@Posts/${fileName}`);
   const [ post, setPost ] = useState('');
 
   useEffect(() => {

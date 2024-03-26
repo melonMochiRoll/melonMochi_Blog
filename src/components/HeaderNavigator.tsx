@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import SearchIcon from '@mui/icons-material/SearchRounded';
 
 const HeaderNavigator: FC = () => {
@@ -17,9 +16,6 @@ const HeaderNavigator: FC = () => {
             sx={{ color: '#64b5f6'}} />
           <span>Search...</span>
         </Searchbar>
-        <Item>
-          <GitHubIcon />
-        </Item>
       </Right>
     </Nav>
   );

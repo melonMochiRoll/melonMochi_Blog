@@ -5,7 +5,7 @@ import HeaderNavigator from '@Components/HeaderNavigator';
 import Tag from '@Components/Tag';
 import { TAGLIST } from '@Posts/index';
 
-const ListHeader: FC = () => {
+const Header: FC = () => {
   const tags = Object.values(TAGLIST);
 
   return (
@@ -32,7 +32,7 @@ const ListHeader: FC = () => {
   );
 };
 
-export default ListHeader;
+export default Header;
 
 const Block = styled.header`
   width: 100%;

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import PostHeader from '@Containers/PostHeader';
-import PostArticle from '@Containers/PostArticle';
+import Content from '@Components/Content';
 import { useParams } from 'react-router-dom';
 
 const PostPage: FC = () => {
@@ -19,7 +19,7 @@ const PostPage: FC = () => {
     <Block>
       <PostHeader
         info={info} />
-      <PostArticle
+      <Content
         post={post} />
     </Block>
   );

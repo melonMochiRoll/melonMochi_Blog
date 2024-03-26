@@ -6,10 +6,14 @@ import Article from '@Components/Article';
 
 interface MainProps {
   posts: TPostInfo[];
+  getMorePosts: () => void;
+  canLoadMore: boolean;
 };
 
 const Main: FC<MainProps> = ({
   posts,
+  getMorePosts,
+  canLoadMore,
 }) => {
   const navigate = useNavigate();
 
@@ -22,7 +26,12 @@ const Main: FC<MainProps> = ({
             post={post}
             navigate={() => navigate(`posts/${post.fileName}`)}/>)
       }
-      <LoadMore>Load More</LoadMore>
+      {!canLoadMore &&
+      <LoadMore
+        onClick={getMorePosts}>
+        Load More
+      </LoadMore>
+      }
     </Posts>
   );
 };
@@ -35,6 +44,7 @@ const Posts = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 100px;
 
   @media only screen and (max-width: 768px) {
     width: 100%;

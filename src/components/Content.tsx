@@ -6,11 +6,11 @@ import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/stackoverflow-dark.min.css';
 
-interface PostArticleProps {
+interface ContentProps {
   post: string;
 };
 
-const PostArticle: FC<PostArticleProps> = ({
+const Content: FC<ContentProps> = ({
   post,
 }) => {
   return (
@@ -23,7 +23,7 @@ const PostArticle: FC<PostArticleProps> = ({
   );
 };
 
-export default PostArticle;
+export default Content;
 
 const Article = styled.article`
   width: 700px;

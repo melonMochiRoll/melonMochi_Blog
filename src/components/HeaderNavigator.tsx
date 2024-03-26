@@ -70,9 +70,9 @@ const Searchbar = styled.div`
   align-items: center;
   font-size: 16px;
   color: #f8f9fa;
-  width: 150px;
+  width: 160px;
   height: 35px;
-  padding: 0 5px;
+  padding: 0 10px;
   background-color: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 15px;

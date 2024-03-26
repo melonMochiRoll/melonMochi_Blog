@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import mainBgImage from '@Assets/images/main_background.jpg';
 import HeaderNavigator from '@Components/HeaderNavigator';
 import Tag from '@Components/Tag';
-import { TAGLIST } from '@Assets/posts';
+import { TAGLIST } from '@Posts/index';
 
 const ListHeader: FC = () => {
   const tags = Object.values(TAGLIST);

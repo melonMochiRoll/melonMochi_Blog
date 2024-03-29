@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/AddRounded';
 interface TagProps {
   tagName: string;
   checked: boolean;
-  onClickTag: (tag: string) => void;
+  onClickTag: (tag: string, checked: boolean) => void;
 };
 
 const Tag: FC<TagProps> = ({
@@ -17,7 +17,7 @@ const Tag: FC<TagProps> = ({
   return (
     <Block
       checked={checked}
-      onClick={() => onClickTag(tagName)}>
+      onClick={() => onClickTag(tagName, checked)}>
       {tagName}
       {checked ?
         <CheckIcon fontSize='small' /> : 

@@ -4,27 +4,22 @@ import mainBgImage from '@Assets/images/main_background.jpg';
 import HeaderNavigator from '@Components/HeaderNavigator';
 import Tag from '@Components/Tag';
 import { TAGLIST } from '@Posts/index';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
-  selectTags: string[];
-  setSelectTags: React.Dispatch<React.SetStateAction<string[]>>;
+  currentTag?: string;
 };
 
 const Header: FC<HeaderProps> = ({
-  selectTags,
-  setSelectTags,
+  currentTag = '',
 }) => {
+  const navigate = useNavigate();
   const tags = Object.values(TAGLIST);
 
-  const addTag = (tag: string) => {
-    setSelectTags((prev) => [...prev, tag]);
-  };
-
-  const removeTag = (tag: string) => {
-    setSelectTags((prev) => {
-      const idx = prev.findIndex((ele) => ele === tag);
-      return [...prev.slice(0, idx), ...prev.slice(idx + 1, prev.length)];
-    });
+  const onClickTag = (tag: string, checked: boolean) => {
+    checked ?
+      navigate('/') :
+      navigate(`/posts?tags=${tag}`);
   };
 
   return (
@@ -32,7 +27,7 @@ const Header: FC<HeaderProps> = ({
       <Cover>
         <HeaderNavigator />
         <ListInfo>
-          <Title>최근 글</Title>
+          <Title>{currentTag || '최근 글'}</Title>
           <Section>
             <TitleSection>
               <H2>Tags</H2>
@@ -42,8 +37,8 @@ const Header: FC<HeaderProps> = ({
                 <Tag
                   key={idx}
                   tagName={tag}
-                  addTag={addTag}
-                  removeTag={removeTag} />
+                  checked={currentTag === tag}
+                  onClickTag={onClickTag} />
               )}
             </TagsSection>
           </Section>

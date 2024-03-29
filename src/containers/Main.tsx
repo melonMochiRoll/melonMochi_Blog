@@ -24,9 +24,9 @@ const Main: FC<MainProps> = ({
           <Article
             key={idx}
             post={post}
-            navigate={() => navigate(`posts/${post.fileName}`)}/>)
+            navigate={() => navigate(`/${post.fileName}`)}/>)
       }
-      {!canLoadMore &&
+      {canLoadMore &&
       <LoadMore
         onClick={getMorePosts}>
         Load More

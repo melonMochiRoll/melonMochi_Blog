@@ -1,12 +1,16 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import SearchIcon from '@mui/icons-material/SearchRounded';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderNavigator: FC = () => {
+  const navigate = useNavigate();
+  
   return (
     <Nav>
       <Left>
-        <Logo>
+        <Logo
+          onClick={() => navigate('/')}>
           MELONMOCHI'S BLOG
         </Logo>
       </Left>

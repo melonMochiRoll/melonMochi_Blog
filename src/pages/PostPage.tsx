@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import PostHeader from '@Containers/PostHeader';
 import Content from '@Components/Content';
 import { useParams } from 'react-router-dom';
+import Footer from '@Containers/Footer';
 
 const PostPage: FC = () => {
   const { fileName } = useParams();
@@ -21,6 +22,7 @@ const PostPage: FC = () => {
         info={info} />
       <Content
         post={post} />
+      <Footer />
     </Block>
   );
 };

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Main from '@Containers/Main';
 import Header from '@Containers/Header';
 import { getPosts } from '@Posts/index';
+import Footer from '@Containers/Footer';
 
 const MainPage: FC = () => {
   const [ posts, setPosts ] = useState(getPosts(0, 6));
@@ -28,6 +29,7 @@ const MainPage: FC = () => {
         posts={posts}
         getMorePosts={getMorePosts}
         canLoadMore={canLoadMore} />
+      <Footer />
     </Block>
   );
 };

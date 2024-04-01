@@ -5,6 +5,7 @@ import Main from '@Containers/Main';
 import { getPostsByTag } from '@Posts/index';
 import { useSearchParams } from 'react-router-dom';
 import { TPostInfo } from '@Typings/post';
+import Footer from '@Containers/Footer';
 
 const PostsPage: FC = () => {
   const [ tagsParams ] = useSearchParams();
@@ -48,6 +49,7 @@ const PostsPage: FC = () => {
         posts={posts}
         getMorePosts={getMorePosts}
         canLoadMore={canLoadMore} />
+      <Footer />
     </Block>
   );
 };

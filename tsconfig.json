@@ -17,6 +17,7 @@
       "@Assets/*": ["src/assets/*"],
       "@Components/*": ["src/components/*"],
       "@Containers/*": ["src/containers/*"],
+      "@Hooks/*": ["src/hooks/*"],
       "@Pages/*": ["src/pages/*"],
       "@Posts/*": ["src/posts/*"],
       "@Typings/*": ["src/typings/*"],

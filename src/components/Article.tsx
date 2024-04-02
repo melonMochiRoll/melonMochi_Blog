@@ -4,12 +4,14 @@ import { TPostInfo } from '@Typings/post';
 
 interface ArticleProps {
   post: TPostInfo;
-  navigate: () => void;
+  navigateToPost: () => void;
+  navigateToPosts: (tag: string) => void;
 };
 
 const Article: FC<ArticleProps> = ({
   post,
-  navigate,
+  navigateToPost,
+  navigateToPosts,
 }) => {
   const { title, tags, createdAt } = post;
 
@@ -17,12 +19,14 @@ const Article: FC<ArticleProps> = ({
     <Block>
       <TagInfo>
         {tags?.map((tag: string, idx: number) =>
-          <TagDisplay key={idx}>
+          <TagDisplay
+            key={idx}
+            onClick={() => navigateToPosts(tag)}>
             {tag}
           </TagDisplay>
         )}
       </TagInfo>
-      <Title onClick={navigate}>{title}</Title>
+      <Title onClick={navigateToPost}>{title}</Title>
       <CreatedAt>{createdAt}</CreatedAt>
     </Block>
   );

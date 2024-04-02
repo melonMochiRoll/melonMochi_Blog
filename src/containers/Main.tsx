@@ -17,6 +17,10 @@ const Main: FC<MainProps> = ({
 }) => {
   const navigate = useNavigate();
 
+  const navigateToPosts = (tag: string) => {
+    navigate(`/posts?tags=${tag}`);
+  };
+
   return (
     <Posts>
       {
@@ -24,7 +28,8 @@ const Main: FC<MainProps> = ({
           <Article
             key={idx}
             post={post}
-            navigate={() => navigate(`/${post.fileName}`)}/>)
+            navigateToPost={() => navigate(`/${post.fileName}`)} 
+            navigateToPosts={navigateToPosts} />)
       }
       {canLoadMore &&
       <LoadMore

@@ -2,12 +2,18 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import SearchIcon from '@mui/icons-material/SearchRounded';
 import { useNavigate } from 'react-router-dom';
+import SearchModal from '@Containers/SearchModal';
+import useToggle from '@Hooks/useToggle';
 
 const HeaderNavigator: FC = () => {
   const navigate = useNavigate();
+  const [ isOpen, toggleModal ] = useToggle(false);
   
   return (
     <Nav>
+      {isOpen &&
+      <SearchModal
+        toggleModal={toggleModal} />}
       <Left>
         <Logo
           onClick={() => navigate('/')}>
@@ -15,7 +21,8 @@ const HeaderNavigator: FC = () => {
         </Logo>
       </Left>
       <Right>
-        <Searchbar>
+        <Searchbar
+          onClick={toggleModal}>
           <SearchIcon
             sx={{ color: '#64b5f6'}} />
           <span>Search...</span>
@@ -34,10 +41,6 @@ const Nav = styled.nav`
   color: #fff;
   width: 60%;
   padding: 20px;
-
-  * {
-    cursor: pointer;
-  }
 `;
 
 const Left = styled.div`
@@ -52,6 +55,7 @@ const Right = styled.div`
 
 const Logo = styled.strong`
   font-size: 22px;
+  cursor: pointer;
 `;
 
 const Item = styled.div`
@@ -83,6 +87,7 @@ const Searchbar = styled.div`
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);
   gap: 7px;
   outline: none;
+  cursor: pointer;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.3);

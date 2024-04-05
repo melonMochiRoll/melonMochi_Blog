@@ -52,3 +52,25 @@ export const getPostsByTag = (
 
   return { posts: result, lastCursor: lastCursor + 1 };
 };
+
+export const getPostsBySearchQuery = async (
+  searchQuery: string,
+  ) => {
+  const searchResult: TPostInfo[] = [];
+
+  for (let i=0; i<postList.length; i++) {
+    const info = postList[i];
+
+    await fetch(require(`@Posts/${info.fileName}`).content)
+      .then(res => res.text())
+      .then(content => {
+
+        if (content.includes(searchQuery)) {
+          searchResult.push(info);
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  return searchResult;
+};

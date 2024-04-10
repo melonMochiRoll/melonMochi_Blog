@@ -4,53 +4,85 @@ export const TAGLIST = {
   React: 'React',
   Javascript: 'Javascript',
   Typescript: 'Typescript',
-  ETC: 'etc',
+  Etc: 'Etc',
 } as const;
 
-/** 
- * format: require('./folderName').info
- * 인덱스 0번에 가까울수록 최신
- */
-const postList: TPostInfo[] =
-[
-  // require('./Eighth_Post').info,
-  // require('./Seventh_Post').info,
-  // require('./Sixth_Post').info,
-  // require('./Fifth_Post').info,
-  // require('./Fourth_Post').info,
-  // require('./Third_Post').info,
-  // require('./Second_Post').info,
-  // require('./First_Post').info,
-];
+const lastSequence = 8;
 
-export const getPosts = (
-  startIdx: number,
-  endIdx: number,
+export const leftPad = (
+  num: number,
+  length: number,
   ) => {
-  return postList.slice(startIdx, endIdx);
+  const str = `${num}`;
+  const cnt = length - str.length;
+
+  if (str.length >= length) return str;
+
+  return '0'.repeat(cnt) + str;
 };
 
-export const getPostsByTag = (
-  tag: string,
-  cursor: number,
+export const getPost = (num: number) => {
+  try {
+    const info = require(`./${leftPad(num, 5)}`);
+    return info;
+  } catch (err) {
+    return false;
+  }
+};
+
+export const getPosts = (
+  cursor?: number,
   ) => {
-  const result: TPostInfo[] = [];
-  let lastCursor = 0;
+  const posts: TPostInfo[] = [];
 
-  for (let i=cursor; i<postList.length; i++) {
-    if (result.length > 5) {
-      break;
-    }
+  if (!cursor) {
+    cursor = lastSequence;
+  }
 
-    const post = postList[i];
-    lastCursor = i;
+  for (let i=cursor; i>0; i--) {
+    if (posts.length > 5) break;
 
-    if (post.tags.includes(tag)) {
-      result.push(post);
+    const result = getPost(i);
+
+    if (result) {
+      posts.push(result.info);
+      cursor = i;
     }
   }
 
-  return { posts: result, lastCursor: lastCursor + 1 };
+  return posts.length ?
+    { posts, cursor: cursor - 1 } :
+    { posts: [], cursor: 0 };
+};
+
+export const getPostsByTag = (
+  tag?: string,
+  cursor = -1,
+  ) => {
+  const posts: TPostInfo[] = [];
+
+  if (!tag || !TAGLIST.hasOwnProperty(tag)) {
+    return { posts: [], cursor: 0 };
+  }
+
+  if (cursor < 0) {
+    cursor = lastSequence;
+  }
+
+  for (let i=cursor; i>0; i--) {
+    if (posts.length > 5) break;
+
+    const result = getPost(i);
+
+    if (result && result.info.tags.includes(tag)) {
+      posts.push(result.info);
+      cursor = i;
+    }
+  }
+
+  return posts.length ?
+    { posts, cursor: cursor - 1 } :
+    { posts: [], cursor: 0 };
 };
 
 export const getPostsBySearchQuery = async (
@@ -58,15 +90,17 @@ export const getPostsBySearchQuery = async (
   ) => {
   const searchResult: TPostInfo[] = [];
 
-  for (let i=0; i<postList.length; i++) {
-    const info = postList[i];
+  for (let i=lastSequence; i>0; i--) {
+    const result = getPost(i);
 
-    await fetch(require(`@Posts/${info.fileName}`).content)
+    if (!result) continue;
+
+    await fetch(result.content)
       .then(res => res.text())
       .then(content => {
 
         if (content.includes(searchQuery)) {
-          searchResult.push(info);
+          searchResult.push(result.info);
         }
       })
       .catch(err => console.error(err));

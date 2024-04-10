@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import Main from '@Containers/Main';
 import Header from '@Containers/Header';
@@ -6,27 +6,29 @@ import { getPosts } from '@Posts/index';
 import Footer from '@Containers/Footer';
 
 const MainPage: FC = () => {
-  const [ posts, setPosts ] = useState(getPosts(0, 6));
+  const [ info, setInfo ] = useState(getPosts());
   const [ canLoadMore, setCanLoadMore ] = useState(true);
-  const loadCount = useRef(1);
   
-  const getMorePosts = () => {
-    const cursor = loadCount.current * 6;
-    const morePosts = getPosts(0 + cursor, 6 + cursor);
+  const getMorePosts = useCallback(() => {
+    const { posts, cursor } = getPosts(info.cursor);
 
-    if (morePosts.length < 6) {
+    if (posts.length < 6) {
       setCanLoadMore(false);
     }
 
-    setPosts((prev) => [...prev, ...morePosts]);
-    ++loadCount.current;
-  };
+    setInfo((prev: any) => {
+      return {
+        posts: [ ...prev.posts, ...posts ],
+        cursor,
+      };
+    });
+  }, [info.cursor]);
   
   return (
     <Block>
       <Header />
       <Main
-        posts={posts}
+        posts={info.posts}
         getMorePosts={getMorePosts}
         canLoadMore={canLoadMore} />
       <Footer />

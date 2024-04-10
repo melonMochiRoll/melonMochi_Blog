@@ -12,7 +12,7 @@ interface PostHeaderProps {
 const PostHeader: FC<PostHeaderProps> = ({
   info,
 }) => {
-  const { title, tags, createdAt } = info;
+  const { title, tags, createdAt } = info || { title: '', tags: [], createdAt: '' };
   
   return (
     <Block>

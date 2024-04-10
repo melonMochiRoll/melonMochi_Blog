@@ -1,52 +1,57 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Header from '@Containers/Header';
 import Main from '@Containers/Main';
 import { getPostsByTag } from '@Posts/index';
 import { useSearchParams } from 'react-router-dom';
-import { TPostInfo } from '@Typings/post';
 import Footer from '@Containers/Footer';
 
 const PostsPage: FC = () => {
-  const [ tagsParams ] = useSearchParams();
-  const [ posts, setPosts ] = useState<TPostInfo[]>([]);
+  const [ tagsParam ] = useSearchParams();
+  const tag = tagsParam.get('tags') || '';
+  const [ info, setInfo ] = useState(getPostsByTag(tag));
   const [ canLoadMore, setCanLoadMore ] = useState(true);
-  const currentTag = tagsParams.get('tags') || '';
-  const cursor = useRef(0);
 
   useEffect(() => {
-    cursor.current = 0;
     setCanLoadMore(true);
-  }, [tagsParams]);
-
-  useEffect(() => {
-    const { posts, lastCursor } = getPostsByTag(currentTag, 0);
-
-    if (posts.length < 6) {
-      setCanLoadMore(false);
-    }
-
-    setPosts(posts);
-    cursor.current = lastCursor;
-  }, [tagsParams]);
+  }, [tag]);
   
-  const getMorePosts = () => {
-    const { posts, lastCursor } = getPostsByTag(currentTag, cursor.current);
+  useEffect(() => {
+    const { posts, cursor } = getPostsByTag(tag);
 
     if (posts.length < 6) {
       setCanLoadMore(false);
     }
 
-    setPosts(prev => [...prev, ...posts]);
-    cursor.current = lastCursor;
-  };
+    setInfo(() => {
+      return {
+        posts,
+        cursor,
+      };
+    });
+  }, [tag]);
+  
+  const getMorePosts = useCallback(() => {
+    const { posts, cursor } = getPostsByTag(tag, info.cursor);
+
+    if (posts.length < 6) {
+      setCanLoadMore(false);
+    }
+
+    setInfo((prev: any) => {
+      return {
+        posts: [ ...prev.posts, ...posts ],
+        cursor,
+      };
+    });
+  }, [info.cursor]);
 
   return (
     <Block>
       <Header
-        currentTag={currentTag} />
+        currentTag={tag} />
       <Main
-        posts={posts}
+        posts={info.posts}
         getMorePosts={getMorePosts}
         canLoadMore={canLoadMore} />
       <Footer />

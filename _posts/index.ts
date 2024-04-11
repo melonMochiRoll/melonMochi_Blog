@@ -4,7 +4,7 @@ export const TAGLIST = {
   React: 'React',
   Javascript: 'Javascript',
   Typescript: 'Typescript',
-  Etc: 'Etc',
+  etc: 'etc',
 } as const;
 
 const lastSequence = 8;

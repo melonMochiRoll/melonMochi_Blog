@@ -13,7 +13,7 @@ const Article: FC<ArticleProps> = ({
   navigateToPost,
   navigateToPosts,
 }) => {
-  const { title, tags, createdAt } = post;
+  const { title, tags, description, createdAt } = post;
 
   return (
     <Block>
@@ -27,6 +27,7 @@ const Article: FC<ArticleProps> = ({
         )}
       </TagInfo>
       <Title onClick={navigateToPost}>{title}</Title>
+      <Description>{description}</Description>
       <CreatedAt>{createdAt}</CreatedAt>
     </Block>
   );
@@ -78,6 +79,11 @@ const Title = styled.h1`
   &:hover {
     color: #29629C;
   }
+`;
+
+const Description = styled.span`
+  font-size: 20px;
+  color: #495057;
 `;
 
 const CreatedAt = styled.span`

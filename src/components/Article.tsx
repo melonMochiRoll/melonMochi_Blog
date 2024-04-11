@@ -13,22 +13,27 @@ const Article: FC<ArticleProps> = ({
   navigateToPost,
   navigateToPosts,
 }) => {
-  const { title, tags, description, createdAt } = post;
+  const { title, tags, description, thumbnail, createdAt } = post;
 
   return (
     <Block>
-      <TagInfo>
-        {tags?.map((tag: string, idx: number) =>
-          <TagDisplay
-            key={idx}
-            onClick={() => navigateToPosts(tag)}>
-            {tag}
-          </TagDisplay>
-        )}
-      </TagInfo>
-      <Title onClick={navigateToPost}>{title}</Title>
-      <Description>{description}</Description>
-      <CreatedAt>{createdAt}</CreatedAt>
+      <Left>
+        <TagInfo>
+          {tags?.map((tag: string, idx: number) =>
+            <TagDisplay
+              key={idx}
+              onClick={() => navigateToPosts(tag)}>
+              {tag}
+            </TagDisplay>
+          )}
+        </TagInfo>
+        <Title onClick={navigateToPost}>{title}</Title>
+        <Description>{description}</Description>
+        <CreatedAt>{createdAt}</CreatedAt>
+      </Left>
+      <Right>
+        <img src={thumbnail} />
+      </Right>
     </Block>
   );
 };
@@ -37,13 +42,32 @@ export default Article;
 
 const Block = styled.article`
   width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e9ecef;
+`;
+
+const Left = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 20px 20px;
-  border-bottom: 1px solid #e9ecef;
+  padding: 20px 0 20px 20px;
   gap: 15px;
+`;
+
+const Right = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+  height: 100%;
+  padding: 20px 20px 20px 0;
+
+  img {
+    object-fit: cover;
+  }
 `;
 
 const TagInfo = styled.div`

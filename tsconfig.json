@@ -19,7 +19,7 @@
       "@Containers/*": ["src/containers/*"],
       "@Hooks/*": ["src/hooks/*"],
       "@Pages/*": ["src/pages/*"],
-      "@Posts/*": ["src/posts/*"],
+      "@Posts/*": ["_posts/*"],
       "@Typings/*": ["src/typings/*"],
     },
   }

@@ -4,5 +4,6 @@ export type TPostInfo = {
   title: string,
   tags: string[],
   description: string,
+  thumbnail: string,
   createdAt: string,
 };

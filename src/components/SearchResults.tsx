@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import SearchIcon from '@mui/icons-material/SearchRounded';
-import { SxProps } from '@mui/material';
+import { CircularProgress, SxProps } from '@mui/material';
 import { TPostInfo } from '@Typings/post';
 import { ESearchStatus } from '@Hooks/useSearch';
+import ErrorIcon from '@mui/icons-material/ErrorOutline';
 
 interface SearchResultsProps {
   searchQuery: string;
@@ -16,9 +17,26 @@ const SearchResults: FC<SearchResultsProps> = ({
   searchResult,
   searchStatus,
 }) => {
+
+  if (!searchQuery) {
+    return (
+      <Block>
+        <SearchIcon sx={SearchIconCSS} />
+      </Block>
+    );
+  }
+
+  if (searchStatus === ESearchStatus.PENDING) {
+    return (
+      <Block>
+        <CircularProgress size={70}/>
+      </Block>
+    );
+  }
+
   return (
     <Block>
-      {searchQuery ?
+      {searchResult?.length ?
         <SearchList>
           {
             searchResult.map((ele: TPostInfo, idx: number) => {
@@ -27,7 +45,7 @@ const SearchResults: FC<SearchResultsProps> = ({
               return (
                 <SearchItem
                   key={idx}>
-                  <span>{title}</span>
+                  <Span>{title}</Span>
                   <TagList>
                     {tags.map((tag: string, idx: number) => 
                       <TagDisplay key={idx}>{tag}</TagDisplay>
@@ -38,8 +56,10 @@ const SearchResults: FC<SearchResultsProps> = ({
             })
           }
         </SearchList> :
-        <SearchIcon
-          sx={SearchIconCSS} />
+        <>
+          <ErrorIcon sx={{ color: '#000', fontSize: '64px', paddingBottom: '15px' }} />
+          <Span>{`"${searchQuery}" 에 대한 검색 결과가 없습니다.`}</Span>
+        </>
       }
     </Block>
   );
@@ -81,16 +101,16 @@ const SearchItem = styled.li`
   cursor: pointer;
   user-select: none;
 
-  span {
-    color: #000;
-    font-size: 20px;
-    font-weight: 600;
-  }
-
   &:hover {
     border: 1px solid #006bd6;
     background-color: #ebf5ff;
   }
+`;
+
+const Span = styled.span`
+  color: #000;
+  font-size: 20px;
+  font-weight: 600;
 `;
 
 const TagList = styled.div`

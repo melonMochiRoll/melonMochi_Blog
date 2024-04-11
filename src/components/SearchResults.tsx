@@ -5,6 +5,7 @@ import { CircularProgress, SxProps } from '@mui/material';
 import { TPostInfo } from '@Typings/post';
 import { ESearchStatus } from '@Hooks/useSearch';
 import ErrorIcon from '@mui/icons-material/ErrorOutline';
+import { useNavigate } from 'react-router-dom';
 
 interface SearchResultsProps {
   searchQuery: string;
@@ -17,6 +18,7 @@ const SearchResults: FC<SearchResultsProps> = ({
   searchResult,
   searchStatus,
 }) => {
+  const navigate = useNavigate();
 
   if (!searchQuery) {
     return (
@@ -34,17 +36,22 @@ const SearchResults: FC<SearchResultsProps> = ({
     );
   }
 
+  const onClickItem = (fileName: string) => {
+    navigate(`/post/${fileName}`);
+  };
+
   return (
     <Block>
       {searchResult?.length ?
         <SearchList>
           {
             searchResult.map((ele: TPostInfo, idx: number) => {
-              const { title, tags } = ele;
+              const { fileName, title, tags } = ele;
 
               return (
                 <SearchItem
-                  key={idx}>
+                  key={idx}
+                  onClick={() => onClickItem(fileName)}>
                   <Span>{title}</Span>
                   <TagList>
                     {tags.map((tag: string, idx: number) => 

@@ -6,6 +6,7 @@
 
 두번째문단<br>
 ![test](/_img/react_thumbnail.jpg)
+<img src='/_img/react_thumbnail.jpg' width='100' height='100' >
 <br><br>
 <br><br>
 ***

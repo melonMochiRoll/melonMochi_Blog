@@ -1,20 +1,19 @@
 
 # API란?
 
-첫번째문단<br>
-두번째줄
+첫번째문단임<br>
+문단이어지나
 
-두번째문단<br>
-<img src='/_img/react_thumbnail.jpg' width='100' height='100' >
+두번째문단
 <br><br>
 <br><br>
 ***
 
 ## H2
 
- - 1
- - 2
- - 3
+ - 왔떠 뻑
+ - 오우 쉣
+ - 욘욘욘
 
 ***
 

@@ -31,10 +31,14 @@ const Main: FC<MainProps> = ({
             navigateToPost={() => navigate(`/post/${post.fileName}`)} 
             navigateToPosts={navigateToPosts} />)
       }
-      {canLoadMore &&
+      {canLoadMore ?
       <LoadMore
         onClick={getMorePosts}>
         Load More
+      </LoadMore> :
+      <LoadMore
+        disabled>
+        목록 없음
       </LoadMore>
       }
     </Posts>

@@ -4,9 +4,10 @@ import mainBgImage from '@Assets/images/main_background.jpg';
 import HeaderNavigator from '@Components/HeaderNavigator';
 import CalendarIcon from '@mui/icons-material/CalendarMonthOutlined';
 import TagPill from '@Components/TagPill';
+import { TPostInfo } from '@Typings/post';
 
 interface PostHeaderProps {
-  info: any;
+  info: TPostInfo;
 };
 
 const PostHeader: FC<PostHeaderProps> = ({

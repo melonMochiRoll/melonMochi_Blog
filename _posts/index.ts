@@ -7,7 +7,7 @@ export const TAGLIST = {
   etc: 'etc',
 } as const;
 
-const lastSequence = 8;
+const lastSequence = 1;
 
 export const leftPad = (
   num: number,

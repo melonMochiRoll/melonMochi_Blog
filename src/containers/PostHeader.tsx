@@ -13,10 +13,10 @@ interface PostHeaderProps {
 const PostHeader: FC<PostHeaderProps> = ({
   info,
 }) => {
-  const { title, tags, createdAt } = info || { title: '', tags: [], createdAt: '' };
+  const { title, tags, thumbnail, createdAt } = info || { title: '', tags: [], thumbnail: mainBgImage, reatedAt: '' };
   
   return (
-    <Block>
+    <Block img={thumbnail}>
       <Cover>
         <HeaderNavigator />
         <PostInfo>
@@ -42,10 +42,10 @@ const PostHeader: FC<PostHeaderProps> = ({
 
 export default PostHeader;
 
-const Block = styled.header`
+const Block = styled.header<{ img: string }>`
   width: 100%;
   height: 600px;
-  background-image: url(${mainBgImage});
+  background-image: url(${props => props.img });
   background-size: cover;
   background-position-y: center;
 `;

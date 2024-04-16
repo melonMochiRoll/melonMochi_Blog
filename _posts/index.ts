@@ -7,7 +7,7 @@ export const TAGLIST = {
   etc: 'etc',
 } as const;
 
-const lastSequence = 1;
+const lastSequence = 2;
 
 export const leftPad = (
   num: number,
@@ -35,7 +35,7 @@ export const getPosts = (
   ) => {
   const posts: TPostInfo[] = [];
 
-  if (!cursor) {
+  if (cursor == undefined) {
     cursor = lastSequence;
   }
 
@@ -57,7 +57,7 @@ export const getPosts = (
 
 export const getPostsByTag = (
   tag?: string,
-  cursor = -1,
+  cursor?: number,
   ) => {
   const posts: TPostInfo[] = [];
 
@@ -65,7 +65,7 @@ export const getPostsByTag = (
     return { posts: [], cursor: 0 };
   }
 
-  if (cursor < 0) {
+  if (cursor == undefined) {
     cursor = lastSequence;
   }
 

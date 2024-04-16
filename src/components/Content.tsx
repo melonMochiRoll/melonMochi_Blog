@@ -28,7 +28,7 @@ export default Content;
 const Article = styled.article`
   width: 700px;
   min-height: 100vh;
-  padding-bottom: 30vh;
+  padding-bottom: 10vh;
 
   h1 {
     font-size: 48px;

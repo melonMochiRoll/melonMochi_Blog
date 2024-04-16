@@ -32,6 +32,8 @@ export const getPost = (num: number) => {
 
 export const getPosts = (
   cursor?: number,
+  limit?: number,
+  skipPostName?: string,
   ) => {
   const posts: TPostInfo[] = [];
 
@@ -39,10 +41,17 @@ export const getPosts = (
     cursor = lastSequence;
   }
 
+  limit = limit == undefined ?
+    5 : limit - 1;
+
   for (let i=cursor; i>0; i--) {
-    if (posts.length > 5) break;
+    if (posts.length > limit) break;
 
     const result = getPost(i);
+
+    if (skipPostName === result?.info?.fileName) {
+      continue;
+    }
 
     if (result) {
       posts.push(result.info);

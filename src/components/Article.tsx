@@ -32,7 +32,7 @@ const Article: FC<ArticleProps> = ({
         <CreatedAt>{createdAt}</CreatedAt>
       </Left>
       <Right>
-        <img src={thumbnail} />
+        <Thumbnail thumbnail={thumbnail} />
       </Right>
     </Block>
   );
@@ -54,6 +54,7 @@ const Left = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  width: 70%;
   padding: 20px 0 20px 20px;
   gap: 15px;
 `;
@@ -61,14 +62,17 @@ const Left = styled.div`
 const Right = styled.div`
   display: flex;
   justify-content: flex-end;
-  width: 50%;
+  width: 30%;
   height: 100%;
   padding: 20px 20px 20px 0;
-
-  img {
-    object-fit: cover;
-  }
 `;
+
+const Thumbnail = styled.div<{ thumbnail: string }>`
+  width: 100%;
+  background-image: url(${props => props.thumbnail});
+  background-size: cover;
+  background-position-x: center;
+`; 
 
 const TagInfo = styled.div`
   display: flex;

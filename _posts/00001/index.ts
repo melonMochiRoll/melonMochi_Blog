@@ -6,7 +6,7 @@ export const info: TPostInfo = {
   title: '호이스팅(Hoisting) 이란?',
   tags: [ TAGLIST.Javascript ],
   description: 'var과 let, const 그리고 함수에 적용되는 호이스팅',
-  thumbnail: '/_img/thumbnail/tag.jpg',
+  thumbnail: require('@Img/thumbnail/tag.jpg'),
   createdAt: '2024.04.15',
 };
 

@@ -1,27 +1,66 @@
 {
   "compilerOptions": {
-    "module": "es6",
+    "module": "esnext",
     "target": "es5",
     "outDir": "./dist",
-    "lib": ["ES2020", "DOM"],
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "preserve",
     "strict": true,
     "allowJs": true,
     "sourceMap": true,
     "noImplicitAny": true,
-    "esModuleInterop" : true,
-    "allowSyntheticDefaultImports" : true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@Assets/*": ["src/assets/*"],
-      "@Components/*": ["src/components/*"],
-      "@Containers/*": ["src/containers/*"],
-      "@Hooks/*": ["src/hooks/*"],
-      "@Img/*": ["_img/*"],
-      "@Pages/*": ["src/pages/*"],
-      "@Posts/*": ["_posts/*"],
-      "@Typings/*": ["src/typings/*"],
+      "@/App/*": ["src/app/*"],
+      "@Assets/*": [
+        "src/assets/*"
+      ],
+      "@Components/*": [
+        "src/components/*"
+      ],
+      "@Containers/*": [
+        "src/containers/*"
+      ],
+      "@Hooks/*": [
+        "src/hooks/*"
+      ],
+      "@Img/*": [
+        "_img/*"
+      ],
+      "@Pages/*": [
+        "src/pages/*"
+      ],
+      "@Posts/*": [
+        "_posts/*"
+      ],
+      "@Typings/*": [
+        "src/typings/*"
+      ]
     },
-  }
+    "skipLibCheck": true,
+    "noEmit": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

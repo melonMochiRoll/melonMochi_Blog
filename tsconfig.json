@@ -18,30 +18,6 @@
     "baseUrl": ".",
     "paths": {
       "@/App/*": ["src/app/*"],
-      "@Assets/*": [
-        "src/assets/*"
-      ],
-      "@Components/*": [
-        "src/components/*"
-      ],
-      "@Containers/*": [
-        "src/containers/*"
-      ],
-      "@Hooks/*": [
-        "src/hooks/*"
-      ],
-      "@Img/*": [
-        "_img/*"
-      ],
-      "@Pages/*": [
-        "src/pages/*"
-      ],
-      "@Posts/*": [
-        "_posts/*"
-      ],
-      "@Typings/*": [
-        "src/typings/*"
-      ]
     },
     "skipLibCheck": true,
     "noEmit": true,

@@ -1,0 +1,27 @@
+
+.block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-image: url('../../../../public/images/not_found_bg.jpg');
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+}
+
+.button {
+  color: #000;
+  font-size: 38px;
+  font-weight: 800;
+  padding: 8px 25px;
+  background-color: #fff;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgba(220, 220, 220, 1);
+}

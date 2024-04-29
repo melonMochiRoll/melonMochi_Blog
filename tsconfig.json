@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@/App/*": ["src/app/*"],
+      "@/Lib/*": ["lib/*"],
       "@/Posts/*": ["posts/*"],
     },
     "skipLibCheck": true,

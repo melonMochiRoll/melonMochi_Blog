@@ -7,8 +7,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -32,7 +30,6 @@
     "@types/node": "20.12.7",
     "@types/react-dom": "^18.2.19",
     "@types/react-syntax-highlighter": "^15.5.11",
-    "gh-pages": "^6.1.1",
     "typescript": "^5.3.3"
   }
 }

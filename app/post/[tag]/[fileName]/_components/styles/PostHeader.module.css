@@ -1,0 +1,73 @@
+
+.header {
+  width: 100%;
+  height: 600px;
+  background-image: url('../../../../../../../public/images/main_bg.jpg');
+  background-size: cover;
+  background-position-y: center;
+}
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.postInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  gap: 30px;
+}
+
+.title {
+  font-size: 58px;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+}
+
+.timeDiv {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  gap: 10px;
+}
+
+.createdAt {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.tagPill {
+  display: flex;
+  align-items: center;
+  color: #0d47a1;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid #868e96;
+  border-radius: 25px;
+  padding: 8px 15px;
+  background-color: #fff;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.1s linear;
+}
+
+.tagPill:hover {
+  color: #fff;
+  border: 2px solid #0d47a1;
+  background-color: #0d47a1;
+}
+
+

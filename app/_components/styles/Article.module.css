@@ -54,14 +54,26 @@
   color: #29629C;
 }
 
+[data-theme='dark'] .title:hover {
+  color: #66B3FF;
+}
+
 .description {
   font-size: 20px;
   color: #495057;
 }
 
+[data-theme='dark'] .description {
+  color: #868e96
+}
+
 .createdAt {
   font-size: 16px;
   color: gray;
+}
+
+[data-theme='dark'] .createdAt {
+  color: #868e96
 }
 
 .right {

@@ -31,3 +31,12 @@
   background-color: #f94449;
   border: 1px solid #f94449;
 }
+
+[data-theme='dark'] .loadMore {
+  color: #fff;
+  background-color: #000;
+}
+
+[data-theme='dark'] .loadMore:hover {
+  border: 1px solid #f94449;
+}

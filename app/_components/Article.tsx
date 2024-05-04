@@ -1,8 +1,9 @@
 import styles from '@/App/_components/styles/Article.module.css';
 import Link from 'next/link';
+import { TPostInfoAndFileName } from '@/Lib/post';
 
 type TArticleProps = {
-  article: any,
+  article: TPostInfoAndFileName,
 };
 
 export default function Article({
@@ -13,9 +14,11 @@ export default function Article({
   return (
     <article className={styles.article}>
       <div className={styles.left}>
-        <div className={styles.tagDisplay}>
+        <Link
+          href={`/posts/${tag}`}
+          className={styles.tagDisplay}>
           {tag}
-        </div>
+        </Link>
         <Link
           href={`/post/${tag}/${fileName}`}
           className={styles.title}>

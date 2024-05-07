@@ -4,6 +4,27 @@
   padding-bottom: 10vh;
 }
 
+.article pre {
+  padding: 20px;
+  border: 1px solid #374151;
+  border-radius: 10px;
+}
+
+.article :not(pre) > code {
+  color: #000;
+  background-color: #e9ecef;
+  font-size: 17px;
+  border: 1px solid #868e96;
+  border-radius: 10px;
+  padding: 3px 8px;
+}
+
+[data-theme='dark'] .article :not(pre) > code {
+  color: #fff;
+  background-color: #282c34;
+  border: 1px solid #495057;
+}
+
 @media all and (max-width: 768px) {
   .article {
     width: 100%;

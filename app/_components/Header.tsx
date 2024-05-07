@@ -1,6 +1,5 @@
 import styles from '@/App/_components/styles/Header.module.css';
 import Tag from '@/App/_components/Tag';
-import Navigator from '@/App/_components/Navigator';
 import { getTags } from '@/Lib/post';
 
 type THeaderProps = {
@@ -15,7 +14,6 @@ export default async function Header({
   return (
     <header className={styles.header}>
       <div className={styles.cover}>
-        <Navigator />
         <div className={styles.listInfo}>
           <h1 className={styles.title}>
             {tag || '최근 글'}

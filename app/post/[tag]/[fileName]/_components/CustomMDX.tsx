@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { MDXRemote, compileMDX } from 'next-mdx-remote/rsc';
-import rehypeHighlight from 'rehype-highlight';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import rehypePrettyCode from 'rehype-pretty-code';
 import PostHeader from '@/App/post/[tag]/[fileName]/_components/PostHeader';
 import Content from '@/App/post/[tag]/[fileName]/_components/Content';
 import matter from 'gray-matter';
@@ -19,6 +19,10 @@ export default async function CustomMDX({
   const mdxSource = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(mdxSource);
 
+  const options = {
+    theme: 'one-dark-pro',
+  };
+
   return (
     <>
       <PostHeader
@@ -28,7 +32,9 @@ export default async function CustomMDX({
           source={content}
           components={components}
           options={{ mdxOptions: {
-            rehypePlugins: [ rehypeHighlight as any ],
+            rehypePlugins: [
+              [ rehypePrettyCode as any, options ],
+            ],
           }
         }}/>
       </Content>
@@ -56,10 +62,5 @@ const components = {
     <p style={{ fontSize: '20px', lineHeight: '2em' }}>
       {props.children}
     </p>
-  ),
-  pre: (props: any) => (
-    <pre style={{ margin: '50px 0' }}>
-      {props.children}
-    </pre>
   ),
 };

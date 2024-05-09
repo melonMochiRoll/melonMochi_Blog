@@ -1,9 +1,9 @@
 import styles from '@/App/_components/styles/Article.module.css';
 import Link from 'next/link';
-import { TPostInfoAndFileName } from '@/Lib/post';
+import { TMetaData } from '@/Lib/post';
 
 type TArticleProps = {
-  article: TPostInfoAndFileName,
+  article: TMetaData,
 };
 
 export default function Article({

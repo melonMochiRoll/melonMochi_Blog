@@ -2,13 +2,13 @@
 
 import styles from '@/App/_components/styles/RecentPosts.module.css';
 import Article from '@/App/_components/Article';
-import { TPostInfoAndFileName, getRecentPosts } from '@/Lib/post';
+import { TMetaData, getRecentPosts } from '@/Lib/post';
 import { useEffect, useState } from 'react';
 import LoadingPosts from '@/App/_components/LoadingPosts';
 
 type TPagination = {
   cursor: number,
-  posts: TPostInfoAndFileName[],
+  posts: TMetaData[],
 };
 
 export default function RecentPosts() {
@@ -51,7 +51,7 @@ export default function RecentPosts() {
   
   return (
     <main className={styles.main}>
-      {pagination.posts.map((ele: TPostInfoAndFileName, idx: number) => {
+      {pagination.posts.map((ele: TMetaData, idx: number) => {
         return (
           <Article
             key={idx}

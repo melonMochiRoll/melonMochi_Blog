@@ -3,12 +3,12 @@
 import Article from "@/App/_components/Article";
 import LoadingPosts from "@/App/_components/LoadingPosts";
 import styles from "@/App/_components/styles/RecentPosts.module.css";
-import { TPostInfoAndFileName, getPostsByTag } from "@/Lib/post";
+import { TMetaData, getPostsByTag } from "@/Lib/post";
 import { useEffect, useState } from "react";
 
 type TPagination = {
   cursor: number,
-  posts: TPostInfoAndFileName[],
+  posts: TMetaData[],
 };
 
 type TPostsByTagProps = {
@@ -57,7 +57,7 @@ export default function PostsByTag({
   
   return (
     <main className={styles.main}>
-      {pagination.posts.map((ele: TPostInfoAndFileName, idx: number) => {
+      {pagination.posts.map((ele: TMetaData, idx: number) => {
         return (
           <Article
             key={idx}

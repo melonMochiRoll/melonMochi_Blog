@@ -1,8 +1,9 @@
 import styles from '@/App/_components/styles/Navigator.module.css';
 import SearchIcon from '@mui/icons-material/SearchRounded';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import Link from 'next/link';
+import ThemeSwitch from './ThemeSwitch';
 
-// Searchbar 모달 필요
 export default function Navigator() {
   return (
     <nav className={styles.nav}>
@@ -15,11 +16,24 @@ export default function Navigator() {
         </Link>
       </div>
       <div className={styles.right}>
-        <div className={styles.searchBar}>
-          <SearchIcon
-            sx={{ color: '#64b5f6'}} />
-          <span>Search...</span>
-        </div>
+        <Link
+          href='/search'>
+          <div className={styles.searchBar}>
+            <SearchIcon
+              sx={{ color: 'var(--primary-color)'}} />
+            <span>Search...</span>
+          </div>
+        </Link>
+        <Link
+          href='https://github.com/melonMochiRoll'
+          target='_blank'>
+          <button
+            className={styles.button}>
+            <GitHubIcon
+              sx={{ color: 'var(--primary-color)'}}/>
+          </button>
+        </Link>
+        <ThemeSwitch />
       </div>
     </nav>
   );

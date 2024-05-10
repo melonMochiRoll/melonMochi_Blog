@@ -1,4 +1,23 @@
 
+:root {
+  --red: #f94449;
+  --blue: #0d47a1;
+  --dark-gray: #495057;
+  --gray: #868e96;
+}
+
+[data-theme='light'] {
+  --primary-color: #1898FF;
+  --border-color: #ced4da;
+  --hover-primary-color: #CEE4F6;
+  --background-primary-color: #fff;
+}
+
+[data-theme='dark'] {
+  --primary-color: #66B3FF;
+  --background-primary-color: #0F1214;
+}
+
 * {
   font-family: 'Pretendard';
   box-sizing: border-box;
@@ -12,7 +31,7 @@ html, body {
 [data-theme='dark'],
 [data-theme='dark'] body {
   color: #fff;
-  background-color: #0F1214;
+  background-color: var(--background-primary-color);
 }
 
 a {

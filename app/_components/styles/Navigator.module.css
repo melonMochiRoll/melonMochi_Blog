@@ -19,7 +19,7 @@
 .right {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 [data-theme='dark'] .right {
@@ -37,11 +37,11 @@
   font-size: 16px;
   color: #303741;
   width: 180px;
-  height: 40px;
+  height: 38px;
   padding: 0 10px;
   background-color: #f1f3f5;
   border: 1px solid var(--border-color);
-  border-radius: 15px;
+  border-radius: 12px;
   gap: 7px;
   outline: none;
   cursor: pointer;
@@ -69,7 +69,7 @@
   color: var(--primary-color);
   padding: 6px;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 12px;
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
   transition: all 0.1s linear;

@@ -28,8 +28,8 @@
 
 .loadMore:hover {
   color: #fff;
-  background-color: #f94449;
-  border: 1px solid #f94449;
+  background-color: var(--red);
+  border-color: var(--red);
 }
 
 [data-theme='dark'] .loadMore {
@@ -38,5 +38,7 @@
 }
 
 [data-theme='dark'] .loadMore:hover {
-  border: 1px solid #f94449;
+  color: #0F1214;
+  background-color: var(--red);
+  border-color: var(--red);
 }

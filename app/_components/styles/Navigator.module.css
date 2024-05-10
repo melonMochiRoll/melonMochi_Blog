@@ -23,7 +23,7 @@
 }
 
 [data-theme='dark'] .right {
-  color: #66B3FF;
+  color: var(--primary-color);
 }
 
 .logo {
@@ -40,7 +40,7 @@
   height: 40px;
   padding: 0 10px;
   background-color: #f1f3f5;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--border-color);
   border-radius: 15px;
   gap: 7px;
   outline: none;
@@ -49,27 +49,26 @@
 }
 
 .searchBar:hover {
-  background-color: #CEE4F6;
+  background-color: var(--hover-primary-color);
 }
 
 [data-theme='dark'] .searchBar {
   color: #b6bec9;
-  background-color: #000;
+  background-color: var(--background-primary-color);
   border: 1px solid #495057;
 }
 
 [data-theme='dark'] .searchBar:hover {
-  border: 1px solid #66B3FF;
-  background-color: #000;
+  border-color: var(--primary-color);
 } 
 
 .button {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #1898FF;
+  color: var(--primary-color);
   padding: 6px;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
@@ -77,14 +76,15 @@
 }
 
 .button:hover {
-  background-color: #CEE4F6;
+  background-color: var(--hover-primary-color);
 }
 
 [data-theme='dark'] .button {
   border: 1px solid #495057;
+  background-color: var(--background-primary-color);
 }
 
 [data-theme='dark'] .button:hover {
-  border: 1px solid #66B3FF;
+  border-color: var(--primary-color);
   background-color: #000;
 }

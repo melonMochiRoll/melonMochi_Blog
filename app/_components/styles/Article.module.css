@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--border-color)
 }
 
 .left {
@@ -27,7 +27,7 @@
 .tagDisplay {
   display: flex;
   align-items: center;
-  color: #0d47a1;
+  color: var(--blue);
   font-size: 14px;
   font-weight: 600;
   border-radius: 25px;
@@ -40,7 +40,7 @@
 
 .tagDisplay:hover {
   color: #fff;
-  background-color: #0d47a1;
+  background-color: var(--blue);
 }
 
 .title {
@@ -48,32 +48,33 @@
   font-weight: 700;
   margin: 0;
   cursor: pointer;
+  transition: all 0.1s linear;
 }
 
 .title:hover {
-  color: #29629C;
+  color: var(--primary-color);
 }
 
 [data-theme='dark'] .title:hover {
-  color: #66B3FF;
+  color: var(--primary-color);
 }
 
 .description {
   font-size: 20px;
-  color: #495057;
+  color: var(--dark-gray);
 }
 
 [data-theme='dark'] .description {
-  color: #868e96
+  color: var(--gray);
 }
 
 .createdAt {
   font-size: 16px;
-  color: gray;
+  color: var(--dark-gray);
 }
 
 [data-theme='dark'] .createdAt {
-  color: #868e96
+  color: var(--gray);
 }
 
 .right {

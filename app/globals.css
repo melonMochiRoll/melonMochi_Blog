@@ -15,6 +15,7 @@
 
 [data-theme='dark'] {
   --primary-color: #66B3FF;
+  --border-color: #495057;
   --background-primary-color: #0F1214;
 }
 

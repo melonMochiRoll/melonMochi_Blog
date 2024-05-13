@@ -13,7 +13,7 @@ export default function SearchModal() {
   const pathname = usePathname();
   const {
     pagination,
-    status,
+    isLoading,
     query,
     onChangeQuery,
     loadMore,
@@ -44,7 +44,7 @@ export default function SearchModal() {
         <SearchResult
           query={query}
           pagination={pagination}
-          status={status}
+          isLoading={isLoading}
           loadMore={loadMore}
           canLoadMore={canLoadMore} />
         <footer className={styles.footer} />

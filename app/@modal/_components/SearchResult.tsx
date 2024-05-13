@@ -1,6 +1,5 @@
 'use client';
 
-import { ESearchStatus } from '@/App/_hooks/useSearch';
 import styles from './styles/SearchResult.module.css';
 import recentPostsStyles from '@/App/_components/styles/RecentPosts.module.css';
 import { useRouter } from 'next/navigation';
@@ -12,7 +11,7 @@ import { TMetaData, TPagination } from '@/Lib/typing';
 type TSearchResultProps = {
   query: string,
   pagination: TPagination,
-  status: ESearchStatus,
+  isLoading: boolean,
   loadMore: () => Promise<void>,
   canLoadMore: boolean,
 };
@@ -20,7 +19,7 @@ type TSearchResultProps = {
 export default function SearchResult({
   query,
   pagination,
-  status,
+  isLoading,
   loadMore,
   canLoadMore,
 }: TSearchResultProps) {
@@ -35,7 +34,7 @@ export default function SearchResult({
     );
   }
 
-  if (status === ESearchStatus.PENDING) {
+  if (isLoading) {
     return (
       <main className={styles.main}>
         <CircularProgress size={70}/>

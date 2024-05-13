@@ -1,20 +1,16 @@
 'use client';
 
-import { ESearchStatus } from '@/App/_hooks/useSearch';
+import { ESearchStatus, TPagination } from '@/App/_hooks/useSearch';
 import styles from './styles/SearchResult.module.css';
 import { useRouter } from 'next/navigation';
 import SearchIcon from '@mui/icons-material/SearchRounded';
 import ErrorIcon from '@mui/icons-material/ErrorOutline';
 import { CircularProgress } from '@mui/material';
 import { TMetaData } from '@/Lib/post';
-import { useEffect } from 'react';
 
 type TSearchResultProps = {
   query: string,
-  pagination: {
-    cursor: number,
-    posts: any[],
-  },
+  pagination: TPagination,
   status: ESearchStatus,
 };
 

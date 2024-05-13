@@ -8,7 +8,7 @@ export const enum ESearchStatus {
   ERROR = 'error',
 };
 
-type TPagination = {
+export type TPagination = {
   cursor: number,
   posts: TMetaData[],
 };

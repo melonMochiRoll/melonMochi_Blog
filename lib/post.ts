@@ -3,21 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-
-export type TPostDir = {
-  tag: string,
-  fileName: string,
-};
-
-export type TPostInfo = {
-  title: string,
-  tag: string,
-  description: string,
-  thumbnail: string,
-  createdAt: string,
-};
-
-export type TPostInfoAndFileName = TPostInfo & { fileName: string };
+import { TMetaData, TPostDir } from './typing';
 
 export async function getTags() {
   const dir = path.join(process.cwd(), 'posts');
@@ -33,7 +19,7 @@ export async function getTags() {
   });
   
   return result;
-};
+}
 
 export async function getPostsListByTag(tag: string) {
   const dir = path.join(process.cwd(), 'posts', tag);
@@ -62,7 +48,29 @@ export async function getPostsListByTag(tag: string) {
   });
 
   return result;
-};
+}
+
+export async function getPostsByQuery(
+  cursor: number,
+  query: string,
+) {
+  const list = await getPostsListAll();
+  const posts: TMetaData[] = [];
+
+  for (let i=cursor; i<list.length; i++) {
+    if (posts.length > 9) break;
+
+    const { metaData, content } = await getPost(list[i]);
+    const result = content.search(query);
+    ++cursor;
+
+    if (result > -1) {
+      posts.push(metaData);
+    }
+  }
+
+  return { cursor, posts };
+}
 
 export async function getPostsListAll() {
   const tags = await getTags();
@@ -76,7 +84,7 @@ export async function getPostsListAll() {
   }, Promise.resolve([]));
 
   return list;
-};
+}
 
 export async function getPost(postDir: TPostDir) {
   const { tag, fileName } = postDir;
@@ -92,11 +100,11 @@ export async function getPost(postDir: TPostDir) {
     });
   });
 
-  const { data } = matter(source);
-  const result = Object.assign(data, { fileName }) as TPostInfoAndFileName;
+  const { data, content } = matter(source);
+  const result = Object.assign(data, { fileName }) as TMetaData;
 
-  return result;
-};
+  return { metaData: result, content };
+}
 
 export async function getRecentPosts(cursor: number) {
   const list = await sortByDate(await getPostsListAll());
@@ -104,11 +112,14 @@ export async function getRecentPosts(cursor: number) {
   const posts = await Promise.all(
     list
     .slice(cursor, cursor + 6)
-    .map(async post => await getPost(post))
+    .map(async post => {
+      const { metaData } = await getPost(post);
+      return metaData;
+    })
   );
 
   return { cursor: cursor + posts.length, posts };
-};
+}
 
 export async function getPostsByTag(
   cursor: number,
@@ -119,11 +130,14 @@ export async function getPostsByTag(
   const posts = await Promise.all(
     list
     .slice(cursor, cursor + 6)
-    .map(async post => await getPost(post))
+    .map(async post => {
+      const { metaData } = await getPost(post);
+      return metaData;
+    })
   );
 
   return { cursor: cursor + posts.length, posts };
-};
+}
 
 export async function sortByDate(list: TPostDir[]) {
   const array = [...list];
@@ -143,4 +157,4 @@ export async function sortByDate(list: TPostDir[]) {
   });
 
   return array;
-};
+}

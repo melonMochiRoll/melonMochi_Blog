@@ -1,12 +1,12 @@
 'use client';
 
-import { ESearchStatus, TPagination } from '@/App/_hooks/useSearch';
+import { ESearchStatus } from '@/App/_hooks/useSearch';
 import styles from './styles/SearchResult.module.css';
 import { useRouter } from 'next/navigation';
 import SearchIcon from '@mui/icons-material/SearchRounded';
 import ErrorIcon from '@mui/icons-material/ErrorOutline';
 import { CircularProgress } from '@mui/material';
-import { TMetaData } from '@/Lib/post';
+import { TMetaData, TPagination } from '@/Lib/typing';
 
 type TSearchResultProps = {
   query: string,

@@ -1,6 +1,6 @@
 import styles from '@/App/_components/styles/Article.module.css';
+import { TMetaData } from '@/Lib/typing';
 import Link from 'next/link';
-import { TMetaData } from '@/Lib/post';
 
 type TArticleProps = {
   article: TMetaData,

@@ -2,54 +2,18 @@
 
 import styles from '@/App/_components/styles/RecentPosts.module.css';
 import Article from '@/App/_components/Article';
-import { getRecentPosts } from '@/Lib/post';
-import { useEffect, useState } from 'react';
 import LoadingPosts from '@/App/_components/LoadingPosts';
 import { TMetaData } from '@/Lib/typing';
-
-type TPagination = {
-  cursor: number,
-  posts: TMetaData[],
-};
+import usePostData from '@/App/_hooks/usePostData';
 
 export default function RecentPosts() {
-  const [ pagination, setPagination ] = useState<TPagination>({ cursor: 0, posts: [] });
-  const [ isLoading, setIsLoading ] = useState(true);
-  const [ canLoadMore, setCanLoadMore ] = useState(true);
+  const {
+    pagination,
+    isLoading,
+    loadMore,
+    canLoadMore,
+  } = usePostData();
 
-  useEffect(() => {
-    getPosts();
-  }, []);
-
-  const getPosts = async () => {
-    const result = await getRecentPosts(pagination.cursor);
-    setIsLoading(false);
-
-    if (result.posts.length < 6) {
-      setCanLoadMore(false);
-    }
-
-    setPagination(result);
-  };
-
-  const loadMore = async () => {
-    setIsLoading(true);
-
-    const result = await getRecentPosts(pagination.cursor);
-    setIsLoading(false);
-
-    if (result.posts.length < 6) {
-      setCanLoadMore(false);
-    }
-
-    setPagination((prev: TPagination) => {
-      return {
-        cursor: result.cursor,
-        posts: [ ...prev.posts, ...result.posts ],
-      };
-    });
-  };
-  
   return (
     <main className={styles.main}>
       {pagination.posts.map((ele: TMetaData, idx: number) => {

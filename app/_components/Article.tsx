@@ -20,6 +20,7 @@ export default function Article({
           {tag}
         </Link>
         <Link
+          prefetch
           href={`/post/${tag}/${fileName}`}
           className={styles.title}>
           {title}

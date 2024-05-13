@@ -17,6 +17,7 @@ export default function Navigator() {
       </div>
       <div className={styles.right}>
         <Link
+          prefetch
           href='/search'>
           <div className={styles.searchBar}>
             <SearchIcon

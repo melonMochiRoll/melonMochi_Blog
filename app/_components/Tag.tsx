@@ -15,6 +15,7 @@ export default function Tag({
   
   return (
     <Link
+      prefetch
       href={href}>
       <div className={`${styles.tag} ${status}`}>
         {tagName}

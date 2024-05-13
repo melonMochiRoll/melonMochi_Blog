@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import useInput from "./useInput";
-import { TMetaData, getPostsByQuery } from "@/Lib/post";
+import { getPostsByQuery } from "@/Lib/post";
+import { TPagination } from "@/Lib/typing";
 
 export const enum ESearchStatus {
   SUCCESS = 'success',
   PENDING = 'pending',
   ERROR = 'error',
-};
-
-export type TPagination = {
-  cursor: number,
-  posts: TMetaData[],
 };
 
 type TUseSearchReturnType = {

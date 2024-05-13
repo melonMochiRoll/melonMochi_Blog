@@ -3,7 +3,8 @@
 import Article from "@/App/_components/Article";
 import LoadingPosts from "@/App/_components/LoadingPosts";
 import styles from "@/App/_components/styles/RecentPosts.module.css";
-import { TMetaData, getPostsByTag } from "@/Lib/post";
+import { getPostsByTag } from "@/Lib/post";
+import { TMetaData } from "@/Lib/typing";
 import { useEffect, useState } from "react";
 
 type TPagination = {

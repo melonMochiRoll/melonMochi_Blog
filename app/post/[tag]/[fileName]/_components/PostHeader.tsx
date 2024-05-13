@@ -1,15 +1,16 @@
 import styles from '@/App/post/[tag]/[fileName]/_components/styles/PostHeader.module.css';
+import { TPostInfo } from '@/Lib/typing';
 import CalendarIcon from '@mui/icons-material/CalendarMonthOutlined';
 import Link from 'next/link';
 
 type TPostHeaderProps = {
-  info?: any,
+  info: TPostInfo,
 };
 
 export default function PostHeader({
   info,
 }: TPostHeaderProps) {
-  const { title, tag, thumbnail, createdAt } = info || { title: 'Loading...', tag: '', createdAt: '' };
+  const { title, tag, thumbnail, createdAt } = info;
 
   return (
     <header className={styles.header}>

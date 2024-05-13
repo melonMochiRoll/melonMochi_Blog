@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import useInput from "./useInput";
-import { getPostsByQuery } from "@/Lib/post";
-import { debounce } from "lodash";
+import { TMetaData, getPostsByQuery } from "@/Lib/post";
 
 export const enum ESearchStatus {
   SUCCESS = 'success',
@@ -9,20 +8,22 @@ export const enum ESearchStatus {
   ERROR = 'error',
 };
 
+type TPagination = {
+  cursor: number,
+  posts: TMetaData[],
+};
+
 type TUseSearchReturnType = {
   query: string,
   onChangeQuery: (e: any) => void,
-  pagination: {
-    cursor: number,
-    posts: any[],
-  },
+  pagination: TPagination,
   status: ESearchStatus,
 };
 
 export default function useSearch(): TUseSearchReturnType {
   const [ query, onChangeQuery ] = useInput('');
-  const [ pagination, setPagination ] = useState<any>({ cursor: 0, posts: [] });
-  const [ status, setStatus ] = useState<ESearchStatus>(ESearchStatus.SUCCESS);
+  const [ pagination, setPagination ] = useState<TPagination>({ cursor: 0, posts: [] });
+  const [ status, setStatus ] = useState<ESearchStatus>(ESearchStatus.PENDING);
 
   useEffect(() => {
     if (query) {

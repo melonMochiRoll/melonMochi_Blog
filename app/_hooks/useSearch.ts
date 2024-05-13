@@ -14,21 +14,20 @@ type TUseSearchReturnType = {
   onChangeQuery: (e: any) => void,
   pagination: TPagination,
   status: ESearchStatus,
+  loadMore: () => Promise<void>,
+  canLoadMore: boolean,
 };
 
 export default function useSearch(): TUseSearchReturnType {
   const [ query, onChangeQuery ] = useInput('');
   const [ pagination, setPagination ] = useState<TPagination>({ cursor: 0, posts: [] });
   const [ status, setStatus ] = useState<ESearchStatus>(ESearchStatus.PENDING);
+  const [ canLoadMore, setCanLoadMore ] = useState(true);
 
   useEffect(() => {
     if (query) {
       const delay = setTimeout(() => {
-        getSearchResult(0, query)
-          .then(_ => {
-            setStatus(ESearchStatus.SUCCESS);
-          })
-          .catch(_ => setStatus(ESearchStatus.ERROR));
+        getSearchResult(0, query);
       }, 500);
   
       return () => {
@@ -42,6 +41,10 @@ export default function useSearch(): TUseSearchReturnType {
       setStatus(ESearchStatus.PENDING);
       const { cursor, posts } = await getPostsByQuery(currentCursor, query);
 
+      if (posts.length < 10) {
+        setCanLoadMore(false);
+      }
+
       setPagination({ cursor, posts });
       setStatus(ESearchStatus.SUCCESS);
     } catch (err) {
@@ -50,12 +53,34 @@ export default function useSearch(): TUseSearchReturnType {
     }
   };
 
-  const loadMore = () => {}; // 추가 불러오기
+  const loadMore = async () => {
+    try {
+      setStatus(ESearchStatus.PENDING);
+      const { cursor, posts } = await getPostsByQuery(pagination.cursor, query);
+
+      if (posts.length < 10) {
+        setCanLoadMore(false);
+      }
+
+      setPagination((prev: TPagination) => {
+        return {
+          cursor,
+          posts: [ ...prev.posts, ...posts ],
+        };
+      });
+      setStatus(ESearchStatus.SUCCESS);
+    } catch (err) {
+      console.error(err);
+      setStatus(ESearchStatus.ERROR);
+    }
+  };
 
   return {
     query,
     onChangeQuery,
     pagination,
     status,
+    loadMore,
+    canLoadMore,
   };
 }

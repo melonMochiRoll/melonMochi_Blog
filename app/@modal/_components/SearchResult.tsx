@@ -2,6 +2,7 @@
 
 import { ESearchStatus } from '@/App/_hooks/useSearch';
 import styles from './styles/SearchResult.module.css';
+import recentPostsStyles from '@/App/_components/styles/RecentPosts.module.css';
 import { useRouter } from 'next/navigation';
 import SearchIcon from '@mui/icons-material/SearchRounded';
 import ErrorIcon from '@mui/icons-material/ErrorOutline';
@@ -12,12 +13,16 @@ type TSearchResultProps = {
   query: string,
   pagination: TPagination,
   status: ESearchStatus,
+  loadMore: () => Promise<void>,
+  canLoadMore: boolean,
 };
 
 export default function SearchResult({
   query,
   pagination,
   status,
+  loadMore,
+  canLoadMore,
 }: TSearchResultProps) {
   const router = useRouter();
   const { posts } = pagination;
@@ -69,6 +74,19 @@ export default function SearchResult({
             {`"${query}" 에 대한 검색 결과가 없습니다.`}
           </span>
         </>
+      }
+      {
+        canLoadMore ?
+        <button
+          onClick={loadMore}
+          className={recentPostsStyles.loadMore}>
+          Load More
+        </button> :
+        <button
+          disabled
+          className={recentPostsStyles.loadMore}>
+          목록 없음
+        </button>
       }
     </main>
   );

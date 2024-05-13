@@ -11,7 +11,14 @@ import Modal from '@/App/_components/Modal';
 export default function SearchModal() {
   const router = useRouter();
   const pathname = usePathname();
-  const { pagination, status, query, onChangeQuery } = useSearch();
+  const {
+    pagination,
+    status,
+    query,
+    onChangeQuery,
+    loadMore,
+    canLoadMore
+  } = useSearch();
 
   if (!pathname.includes('search')) {
     return null;
@@ -37,7 +44,9 @@ export default function SearchModal() {
         <SearchResult
           query={query}
           pagination={pagination}
-          status={status} />
+          status={status}
+          loadMore={loadMore}
+          canLoadMore={canLoadMore} />
         <footer className={styles.footer} />
       </div>
     </Modal>

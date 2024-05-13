@@ -1,10 +1,11 @@
 import styles from '@/App/post/[tag]/[fileName]/_components/styles/PostHeader.module.css';
-import { TPostInfo } from '@/Lib/typing';
 import CalendarIcon from '@mui/icons-material/CalendarMonthOutlined';
 import Link from 'next/link';
 
 type TPostHeaderProps = {
-  info: TPostInfo,
+  info: {
+    [key: string]: any,
+  },
 };
 
 export default function PostHeader({

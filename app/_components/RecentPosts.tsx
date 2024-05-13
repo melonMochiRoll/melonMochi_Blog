@@ -2,9 +2,10 @@
 
 import styles from '@/App/_components/styles/RecentPosts.module.css';
 import Article from '@/App/_components/Article';
-import { TMetaData, getRecentPosts } from '@/Lib/post';
+import { getRecentPosts } from '@/Lib/post';
 import { useEffect, useState } from 'react';
 import LoadingPosts from '@/App/_components/LoadingPosts';
+import { TMetaData } from '@/Lib/typing';
 
 type TPagination = {
   cursor: number,

@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from "path";
 import matter from 'gray-matter';
 import { Suspense } from "react";
-import CustomMDX from "@/App/post/[tag]/[fileName]/_components/CustomMDX";
+import Post from "@/App/post/[tag]/[fileName]/_components/Post";
 import Loading from "@/App/post/[tag]/[fileName]/loading";
 import { metadata } from '@/App/layout';
 import FixedBox from './_components/FixedBox';
@@ -35,7 +35,7 @@ export default function PostPage({
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <CustomMDX
+        <Post
           tag={tag}
           fileName={fileName} />
       </Suspense>

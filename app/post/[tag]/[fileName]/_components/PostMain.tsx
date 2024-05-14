@@ -2,6 +2,7 @@ import styles from '@/App/post/[tag]/[fileName]/_components/styles/PostMain.modu
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypePrettyCode from 'rehype-pretty-code';
+import Comments from './Comments';
 
 type TPostMainProps = {
   tags: string[],
@@ -26,6 +27,7 @@ export default function PostMain({
           ],
         }
       }}/>
+      <Comments />
     </article>
     <aside className={styles.aside}>
       <span className={styles.tags}>TAG LIST</span>

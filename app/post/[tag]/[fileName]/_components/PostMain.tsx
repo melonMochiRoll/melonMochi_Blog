@@ -67,7 +67,7 @@ const components = {
     </h2>
   ),
   p: (props: any) => (
-    <p style={{ fontSize: '20px', lineHeight: '2em' }}>
+    <p style={{ fontSize: '17px', lineHeight: '2em' }}>
       {props.children}
     </p>
   ),

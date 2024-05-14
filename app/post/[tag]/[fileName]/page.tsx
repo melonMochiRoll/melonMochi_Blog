@@ -2,10 +2,12 @@ import fs from 'fs';
 import path from "path";
 import matter from 'gray-matter';
 import { Suspense } from "react";
-import Post from "@/App/post/[tag]/[fileName]/_components/Post";
 import Loading from "@/App/post/[tag]/[fileName]/loading";
 import { metadata } from '@/App/layout';
 import FixedBox from './_components/FixedBox';
+import PostHeader from '@/App/post/[tag]/[fileName]/_components/PostHeader';
+import PostMain from '@/App/post/[tag]/[fileName]/_components/PostMain';
+import { getTags } from '@/Lib/post';
 
 type TPostPageProps = {
   params: {
@@ -27,17 +29,23 @@ export async function generateMetadata({
   };
 }
 
-export default function PostPage({
+export default async function PostPage({
   params,
 }: TPostPageProps) {
   const { tag, fileName } = params;
+  const tags = await getTags();
+  const filePath = path.join(process.cwd(), 'posts', tag, `${fileName}.mdx`);
+  const mdxSource = fs.readFileSync(filePath, 'utf-8');
+  const { data, content } = matter(mdxSource);
 
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <Post
-          tag={tag}
-          fileName={fileName} />
+        <PostHeader
+          info={data} />
+        <PostMain
+          tags={tags}
+          content={content} />
       </Suspense>
       <FixedBox />
     </>

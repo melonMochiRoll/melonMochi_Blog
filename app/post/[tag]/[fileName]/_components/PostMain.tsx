@@ -4,7 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypePrettyCode from 'rehype-pretty-code';
 
 type TPostMainProps = {
-  tags: any,
+  tags: string[],
   content: string,
 }
 
@@ -34,7 +34,7 @@ export default function PostMain({
           tags.map((tag: string, idx: number) => {
             return (
               <Link
-                key={tag+idx}
+                key={tag + idx}
                 className={styles.tag}
                 href={`/posts/${tag}`}>
                 {tag}

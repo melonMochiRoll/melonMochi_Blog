@@ -1,0 +1,103 @@
+---
+title: React - Suspense란?
+tag: React
+description: React 18에서 정식으로 추가된 Suspense
+thumbnail:
+createdAt: 2024.05.16
+---
+
+## Suspense
+
+```javascript
+  <Suspense fallback={<Loading />}>
+    <AsyncComponent />
+  </Suspense>
+```
+
+`Suspense`는 React 18버전부터 정식으로 추가 된 기능으로 자식 컴포넌트에서의 렌더링 되기 전 비동기 작업이 진행
+되는 동안 `fallback`에 있는 컴포넌트가 대신 렌더링 되는 기능입니다.
+
+```javascript
+  export default function App() {
+    const [ posts, setPosts ] = useState([]);
+    const [ isLoading, setIsLoading ] = useState(true);
+
+    useEffect(() => {
+      fetch('example.com/123')
+        .then(res => {
+          setPosts(res);
+          setIsLoading(false);
+        });
+    }, []);
+
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+
+    return (
+      <>
+      {
+        posts.map(post => {
+          return <div>{post}</div>;
+        })
+      }
+      </>
+    );
+  }
+```
+
+위와 같은 기존에 사용되던 방식은 비동기 작업이 끝나기 전까지의 상태 관리를 해당 컴포넌트에서 함께 이루어 지는 경우가 많았는데요
+그러한 로딩 관리를 해당 컴포넌트와 분리해 따로 관리할 수 있어 좀 더 역할 분리나 코드의 가독성에 도움을 줄수 있는 기능이라고 볼
+수 있습니다.
+
+> Suspense는 반드시 데이터를 가져오는 비동기 컴포넌트보다 상위 레벨에 배치 되어야 합니다 <br/>
+비동기 작업을 수행하는 컴포넌트 내부에 배치되면 작동하지 않습니다. <br/>
+
+만약 비동기 작업이 일어나는 컴포넌트가 여러개 라면 어떨까요? 먼저 하나의 Suspense안에 병렬적으로 배치했을때에 모습입니다.
+
+```javascript
+  export default function App() {
+    return (
+      <Suspense fallback={<Loading />}>
+        <AsyncComponent />
+
+        <div>
+          <AsyncComponent2 />
+        </div>
+      </Suspense>
+    );
+  }
+```
+
+Suspense가 적용 되기 전이었다면 요청한 순서대로 비동기 작업이 끝난다는 보장이 없기 때문에 매번 렌더링되는 순서가
+달라질수 있고 의도치 않게 데이터 간의 싱크가 맞지 않을수 있습니다. 하지만 위와 같이 하나의 Suspense안에 함께 배치하게되면
+내부에 있는 모든 비동기 컴포넌트들의 작업이 끝났을때 `항상` 한꺼번에 표시되어 일관성을 유지할 수 있습니다.
+<br/>
+
+여기서 Suspense를 중첩 시킨다면 어떨까요?
+
+```javascript
+  export default function App() {
+    return (
+      <Suspense fallback={<Loading />}>
+        <AsyncComponent /> // 1번
+
+        <Suspense fallback={<Loading />}>
+          <AsyncComponent2 /> // 2번
+        </Suspense>
+      </Suspense>
+    );
+  }
+```
+
+하나의 Suspense 안에 함께 배치했을때엔 모든 비동기 작업이 끝날때까지 기다려야했지만
+중첩시엔 1번 컴포넌트의 작업이 끝난후 렌더링이 완료되면 2번 컴포넌트의 작업이 시작되어
+순서를 보장할수 있게 됩니다.
+<br/>
+
+Suspense를 사용하면 비동기 작업 후 렌더링이 동시에 일어나야하는지 예정된 순서대로 일어나야 하는지 조절하여<br/>
+일관성을 유지할수있고 코드의 간결함과 가독성을 향상 시키도록 도와줄수있습니다.
+<br/>
+
+참조 : <br/>
+[https://react-ko.dev/reference/react/Suspense#](https://react-ko.dev/reference/react/Suspense#)

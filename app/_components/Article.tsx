@@ -1,6 +1,7 @@
 import styles from '@/App/_components/styles/Article.module.css';
 import { TMetaData } from '@/Lib/typing';
 import Link from 'next/link';
+import { CSSProperties } from 'react';
 
 type TArticleProps = {
   article: TMetaData,
@@ -10,6 +11,14 @@ export default function Article({
   article,
 }: TArticleProps) {
   const { fileName, title, tag, description, thumbnail, createdAt } = article;
+
+  const thumbnailStyle: CSSProperties = {
+    width: '100%',
+    height: '150px',
+    backgroundImage: `url(${thumbnail})`,
+    backgroundSize: 'cover',
+    backgroundPositionX: 'center',
+  };
 
   return (
     <article className={styles.article}>
@@ -33,7 +42,9 @@ export default function Article({
         </span>
       </div>
       <div className={styles.right}>
-        <div className={styles.thumbnail} />
+        <Link
+          href={`/post/${tag}/${fileName}`}
+          style={thumbnailStyle} />
       </div>
     </article>
   );

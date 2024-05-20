@@ -1,6 +1,7 @@
 import styles from '@/App/post/[tag]/[fileName]/_components/styles/PostHeader.module.css';
 import CalendarIcon from '@mui/icons-material/CalendarMonthOutlined';
 import Link from 'next/link';
+import { CSSProperties } from 'react';
 
 type TPostHeaderProps = {
   info: {
@@ -13,8 +14,16 @@ export default function PostHeader({
 }: TPostHeaderProps) {
   const { title, tag, thumbnail, createdAt } = info;
 
+  const headerStyle: CSSProperties = {
+    width: '100%',
+    height: '600px',
+    backgroundImage: `url(${thumbnail})`,
+    backgroundSize: 'cover',
+    backgroundPositionY: 'center',
+  };
+
   return (
-    <header className={styles.header}>
+    <header style={headerStyle}>
       <div className={styles.cover}>
         <div className={styles.postInfo}>
           <Link

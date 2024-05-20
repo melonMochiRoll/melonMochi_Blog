@@ -98,6 +98,10 @@
   background-color: rgba(102, 179, 255, 0.3);
 }
 
+.article li {
+  margin: 10px 0;
+}
+
 @media all and (max-width: 768px) {
   .article {
     width: 100%;

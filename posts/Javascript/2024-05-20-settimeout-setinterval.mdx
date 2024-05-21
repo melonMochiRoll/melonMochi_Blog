@@ -1,7 +1,7 @@
 ---
-title: setTimeout, setInterval 사용 시 조심하세요
+title: setTimeout, setInterval 사용 시 조심할 점
 tag: Javascript
-description: setTimeout, setInterval 잘 보고 사용하셔야 합니다.
+description: setTimeout, setInterval의 활용
 thumbnail: /images/thumbnail/javascript.jpg
 createdAt: 2024.05.20
 ---
@@ -90,7 +90,7 @@ setTimeout에서 반환 된 ID를 이용해 clearTimeout 함수에 넣으면 타
     experted += interval;
     
     console.log(new Date - currentTime); // 타이머에 출력 될 시간
-    id = setTimeout(callback, 1000 - delay);
+    setTimeout(callback, 1000 - delay);
   };
   
   setTimeout(callback, 1000);

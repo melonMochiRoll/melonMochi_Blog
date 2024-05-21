@@ -73,7 +73,7 @@
 .article :not(pre) > code {
   color: #000;
   background-color: #e9ecef;
-  font-size: 17px;
+  font-size: 15px;
   border: 1px solid #868e96;
   border-radius: 10px;
   padding: 3px 8px;

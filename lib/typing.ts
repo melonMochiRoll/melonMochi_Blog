@@ -18,3 +18,8 @@ export type TPostDir = {
   tag: string,
   fileName: string,
 };
+
+export type TTableOfContent = {
+  id: string,
+  title: string,
+};

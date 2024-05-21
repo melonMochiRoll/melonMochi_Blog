@@ -167,7 +167,7 @@ export async function parseTOC(content: string) {
     return searched
       .reduce((acc: TTableOfContent[], str: string) => {
         acc.push({
-          id: str
+          id: '#' + str
             .replace('## ', '#')
             .replace(/ /g, '-')
             .replace(/[\[\]:!@#$/%^&*()+=,.]/g, '')

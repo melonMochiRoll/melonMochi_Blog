@@ -6,7 +6,7 @@ import Loading from "@/App/post/[tag]/[fileName]/loading";
 import { metadata } from '@/App/layout';
 import PostHeader from '@/App/post/[tag]/[fileName]/_components/PostHeader';
 import PostMain from '@/App/post/[tag]/[fileName]/_components/PostMain';
-import { getTags } from '@/Lib/post';
+import { getTags, parseTOC } from '@/Lib/post';
 
 type TPostPageProps = {
   params: {
@@ -36,6 +36,7 @@ export default async function PostPage({
   const filePath = path.join(process.cwd(), 'posts', tag, `${fileName}.mdx`);
   const mdxSource = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(mdxSource);
+  const toc = await parseTOC(content);
 
   return (
     <Suspense fallback={<Loading />}>
@@ -43,6 +44,7 @@ export default async function PostPage({
         info={data} />
       <PostMain
         tags={tags}
+        toc={toc}
         content={content} />
     </Suspense>
   );

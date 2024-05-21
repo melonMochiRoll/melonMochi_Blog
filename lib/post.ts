@@ -3,7 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { TMetaData, TPostDir } from './typing';
+import { TMetaData, TPostDir, TTableOfContent } from './typing';
 
 export async function getTags() {
   const dir = path.join(process.cwd(), 'posts');
@@ -157,4 +157,27 @@ export async function sortByDate(list: TPostDir[]) {
   });
 
   return array;
+}
+
+export async function parseTOC(content: string) {
+  const regex = new RegExp(/##.*$/, 'gim');
+  const searched = content.match(regex);
+
+  if (Array.isArray(searched) && searched.length) {
+    return searched
+      .reduce((acc: TTableOfContent[], str: string) => {
+        acc.push({
+          id: str
+            .replace('## ', '#')
+            .replace(/ /g, '-')
+            .replace(/[\[\]:!@#$/%^&*()+=,.]/g, '')
+            .replace('?', '')
+            .toLowerCase(),
+          title: str.replace('## ', ''),
+        });
+        return acc;
+      }, []);
+  }
+
+  return [];
 }

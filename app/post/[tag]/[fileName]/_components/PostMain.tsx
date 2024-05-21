@@ -3,75 +3,72 @@ import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypePrettyCode from 'rehype-pretty-code';
 import Comments from './Comments';
+import { TTableOfContent } from '@/Lib/typing';
+import rehypeSlug from 'rehype-slug';
+import ScrollControl from './ScrollControl';
 
 type TPostMainProps = {
   tags: string[],
+  toc: TTableOfContent[],
   content: string,
 }
 
 export default function PostMain({
   tags,
+  toc,
   content,
 }: TPostMainProps) {
-
   return (
-  <main className={styles.main}>
-    <aside className={styles.aside}>
-      <span className={styles.tags}>TAG LIST</span>
-        <div className={styles.tagList}>
-          {
-            tags.map((tag: string, idx: number) => {
-              return (
-                <Link
+    <main className={styles.main}>
+      <aside className={styles.aside}>
+        <div className={styles.tags}>
+          <strong>TAG LIST</strong>
+          <div className={styles.tagList}>
+            {
+              tags.map((tag: string, idx: number) => {
+                return <Link
                   key={tag + idx}
-                  className={styles.tag}
                   href={`/posts/${tag}`}>
                   {tag}
-                </Link>
-              );
-            })
-          }
+                </Link>;
+              })
+            }
+          </div>
         </div>
-    </aside>
-    <article className={styles.article}>
-      <MDXRemote
-        source={content}
-        components={components}
-        options={{ mdxOptions: {
-          rehypePlugins: [
-            [ rehypePrettyCode as any, options ],
-          ],
-        }
-      }}/>
-      <Comments />
-    </article>
-    <aside className={styles.aside} />
-  </main>
+      </aside>
+      <article className={styles.article}>
+        <MDXRemote
+          source={content}
+          options={{
+            mdxOptions: {
+              rehypePlugins: [
+                [ rehypePrettyCode as any, options ],
+                rehypeSlug,
+              ],
+            }
+          }} />
+        <Comments />
+      </article>
+      <aside className={styles.aside}>
+        <div className={styles.sticky}>
+          <strong>CONTENTS</strong>
+          <div className={styles.tocList}>
+            {
+              toc.map((ele: TTableOfContent, idx: number) => {
+                return <Link
+                  key={ele.id + idx}
+                  href={ele.id}>
+                    {ele.title}
+                  </Link>
+              })
+            }
+          </div>
+          <ScrollControl />
+        </div>
+      </aside>
+    </main>
   );
 }
-
-const components = {
-  h1: (props: any) => (
-    <h1 style={{ fontSize: '48px', marginTop: '50px', }}>
-      {props.children}
-    </h1>
-  ),
-  h2: (props: any) => (
-    <h2 style={{
-      fontSize: '36px',
-      marginTop: '50px',
-      borderBottom: '2px solid #e3e3e3',
-      paddingBottom: '25px',
-    }}>
-      {props.children}
-    </h2>
-  ),
-  p: (props: any) => (
-    <p style={{ fontSize: '17px', lineHeight: '2em' }}>
-      {props.children}
-    </p>
-  ),
-};
 
 const options = {
   theme: 'one-dark-pro',

@@ -16,7 +16,23 @@ export default function PostMain({
 
   return (
   <main className={styles.main}>
-    <aside className={styles.aside} />
+    <aside className={styles.aside}>
+      <span className={styles.tags}>TAG LIST</span>
+        <div className={styles.tagList}>
+          {
+            tags.map((tag: string, idx: number) => {
+              return (
+                <Link
+                  key={tag + idx}
+                  className={styles.tag}
+                  href={`/posts/${tag}`}>
+                  {tag}
+                </Link>
+              );
+            })
+          }
+        </div>
+    </aside>
     <article className={styles.article}>
       <MDXRemote
         source={content}
@@ -29,23 +45,7 @@ export default function PostMain({
       }}/>
       <Comments />
     </article>
-    <aside className={styles.aside}>
-      <span className={styles.tags}>TAG LIST</span>
-      <div className={styles.tagList}>
-        {
-          tags.map((tag: string, idx: number) => {
-            return (
-              <Link
-                key={tag + idx}
-                className={styles.tag}
-                href={`/posts/${tag}`}>
-                {tag}
-              </Link>
-            );
-          })
-        }
-      </div>
-    </aside>
+    <aside className={styles.aside} />
   </main>
   );
 }

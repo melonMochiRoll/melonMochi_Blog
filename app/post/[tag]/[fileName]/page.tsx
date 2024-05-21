@@ -4,7 +4,6 @@ import matter from 'gray-matter';
 import { Suspense } from "react";
 import Loading from "@/App/post/[tag]/[fileName]/loading";
 import { metadata } from '@/App/layout';
-import FixedBox from './_components/FixedBox';
 import PostHeader from '@/App/post/[tag]/[fileName]/_components/PostHeader';
 import PostMain from '@/App/post/[tag]/[fileName]/_components/PostMain';
 import { getTags } from '@/Lib/post';
@@ -39,15 +38,12 @@ export default async function PostPage({
   const { data, content } = matter(mdxSource);
 
   return (
-    <>
-      <Suspense fallback={<Loading />}>
-        <PostHeader
-          info={data} />
-        <PostMain
-          tags={tags}
-          content={content} />
-      </Suspense>
-      <FixedBox />
-    </>
+    <Suspense fallback={<Loading />}>
+      <PostHeader
+        info={data} />
+      <PostMain
+        tags={tags}
+        content={content} />
+    </Suspense>
   );
 }

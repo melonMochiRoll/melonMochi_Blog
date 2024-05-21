@@ -2,7 +2,7 @@
 .fixed {
   position: fixed;
   top: 25%;
-  left: 12%;
+  right: 12%;
   display: flex;
   align-items: center;
   gap: 15px;

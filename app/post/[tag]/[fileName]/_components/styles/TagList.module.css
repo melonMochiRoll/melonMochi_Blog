@@ -1,0 +1,32 @@
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+[data-theme='dark'] .tags {
+  color: #fff;
+}
+
+.tags strong {
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.tagList {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark-gray);
+  gap: 10px;
+}
+
+[data-theme='dark'] .tagList {
+  color: var(--light-gray);
+}
+
+.tagList a:hover {
+  color: var(--primary-color);
+}

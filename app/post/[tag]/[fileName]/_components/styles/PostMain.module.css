@@ -45,6 +45,8 @@
   color: var(--primary-color);
 }
 
+/* 마크다운 CSS */
+
 .article {
   width: 800px;
   min-height: 100vh;

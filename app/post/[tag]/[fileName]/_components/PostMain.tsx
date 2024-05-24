@@ -30,7 +30,7 @@ export default function PostMain({
           options={{
             mdxOptions: {
               rehypePlugins: [
-                [ rehypePrettyCode as any, options ],
+                [ rehypePrettyCode as any, { theme: 'one-dark-pro' } ],
                 rehypeSlug,
               ],
             }
@@ -44,7 +44,3 @@ export default function PostMain({
     </main>
   );
 }
-
-const options = {
-  theme: 'one-dark-pro',
-};

@@ -9,7 +9,7 @@ export default function useHeadingTracker(selectors: string): TUseHeadingTrackRe
   const [ activeId, setActiveId ] = useState('');
 
   const options: IntersectionObserverInit = {
-    rootMargin: '-10% 0px -80% 0px',
+    rootMargin: '0px 0px -70% 0px',
   };
 
   useEffect(() => {

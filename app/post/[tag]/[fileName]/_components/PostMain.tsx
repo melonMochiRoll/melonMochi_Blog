@@ -5,7 +5,7 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import Comments from './Comments';
 import { TTableOfContent } from '@/Lib/typing';
 import rehypeSlug from 'rehype-slug';
-import ScrollControl from './ScrollControl';
+import TableOfContent from '@/App/post/[tag]/[fileName]/_components/TableOfContent';
 
 type TPostMainProps = {
   tags: string[],
@@ -50,21 +50,8 @@ export default function PostMain({
         <Comments />
       </article>
       <aside className={styles.aside}>
-        <div className={styles.sticky}>
-          <strong>CONTENTS</strong>
-          <div className={styles.tocList}>
-            {
-              toc.map((ele: TTableOfContent, idx: number) => {
-                return <Link
-                  key={ele.id + idx}
-                  href={ele.id}>
-                    {ele.title}
-                  </Link>
-              })
-            }
-          </div>
-          <ScrollControl />
-        </div>
+        <TableOfContent
+          toc={toc} />
       </aside>
     </main>
   );

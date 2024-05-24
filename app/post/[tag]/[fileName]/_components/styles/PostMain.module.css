@@ -45,35 +45,6 @@
   color: var(--primary-color);
 }
 
-.sticky {
-  position: sticky;
-  display: flex;
-  flex-direction: column;
-  top: 40%;
-  gap: 15px;
-}
-
-.sticky strong {
-  font-size: 12px;
-  letter-spacing: 2px;
-}
-
-.tocList {
-  display: flex;
-  flex-direction: column;
-  font-weight: 600;
-  color: var(--dark-gray);
-  gap: 10px;
-}
-
-[data-theme='dark'] .tocList {
-  color: var(--light-gray);
-}
-
-.tocList a:hover {
-  color: var(--primary-color);
-}
-
 .article {
   width: 800px;
   min-height: 100vh;

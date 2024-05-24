@@ -1,7 +1,9 @@
+'use client';
+
 import styles from '@/App/post/[tag]/[fileName]/_components/styles/TableOfContent.module.css';
 import ScrollControl from './ScrollControl';
 import { TTableOfContent } from '@/Lib/typing';
-import Link from 'next/link';
+import useHeadingTracker from '@/App/_hooks/useHeadingTracker';
 
 type TTableOfContentProps = {
   toc: TTableOfContent[],
@@ -10,17 +12,22 @@ type TTableOfContentProps = {
 export default function TableOfContent({
   toc,
 }: TTableOfContentProps) {
+  const [ activeId ] = useHeadingTracker('h2, h3');
+
   return (
     <div className={styles.sticky}>
       <strong>CONTENTS</strong>
       <div className={styles.tocList}>
         {
           toc.map((ele: TTableOfContent, idx: number) => {
-            return <Link
+            const className = ele.id === activeId ? styles.active : styles.inactive;
+
+            return <a
               key={ele.id + idx}
-              href={ele.id}>
+              href={ele.id}
+              className={className}>
                 {ele.title}
-              </Link>
+              </a>
           })
         }
       </div>

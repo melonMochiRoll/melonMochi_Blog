@@ -9,14 +9,15 @@
 
 .sticky strong {
   font-size: 12px;
+  padding-left: 10px;
   letter-spacing: 2px;
 }
 
 .tocList {
   display: flex;
   flex-direction: column;
-  font-weight: 600;
   color: var(--dark-gray);
+  font-weight: 600;
   gap: 10px;
 }
 
@@ -26,4 +27,14 @@
 
 .tocList a:hover {
   color: var(--primary-color);
+}
+
+.active {
+  color: var(--primary-color);
+  padding: 5px 5px 5px 10px;
+  border-left: 2px solid var(--primary-color);
+}
+
+.inactive {
+  padding: 5px 5px 5px 12px;
 }

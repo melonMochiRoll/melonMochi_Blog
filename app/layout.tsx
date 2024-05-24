@@ -40,7 +40,8 @@ export default function RootLayout({
           }}>
         </script>
       </head>
-      <body>
+      <body
+        suppressHydrationWarning={true}>
         <div className='main'>
           <ThemeProvider
             enableSystem={false}>

@@ -15,6 +15,14 @@
   background-color: #0F1214;
 }
 
+@media all and (max-width: 768px) {
+  .modal {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
 .searchBar {
   display: flex;
   align-items: center;
@@ -22,6 +30,17 @@
   height: 15%;
   padding: 20px;
   border-bottom: 1px solid #adb5bd;
+}
+
+@media all and (max-width: 768px) {
+  .searchBar {
+    height: 10%;
+    padding: 10px;
+  }
+
+  .searchBar svg {
+    font-size: 42px;
+  }
 }
 
 [data-theme='dark'] .searchBar {
@@ -34,6 +53,13 @@
   font-size: 24px;
   border: none;
   outline: none;
+}
+
+@media all and (max-width: 768px) {
+  .input {
+    font-size: 20px;
+    padding: 0 10px;
+  }
 }
 
 [data-theme='dark'] .input {

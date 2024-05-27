@@ -8,6 +8,12 @@
   height: 80%;
 }
 
+@media all and (max-width: 768px) {
+  .main {
+    justify-content: flex-start;
+  }
+}
+
 .searchIcon {
   color: #f1f3f5;
   font-size: 250px;
@@ -20,6 +26,17 @@
 .errorIcon {
   font-size: 64px;
   padding-bottom: 15px;
+}
+
+@media all and (max-width: 768px) {
+  .searchIcon {
+    font-size: 175px;
+    margin-top: 100px;
+  }
+
+  .errorIcon {
+    margin-top: 100px;
+  }  
 }
 
 .span {

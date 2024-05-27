@@ -7,6 +7,13 @@
   padding: 10px 20px;
 }
 
+@media all and (max-width: 768px) {
+  .nav {
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
 .left {
   display: flex;
   color: #000;
@@ -33,6 +40,12 @@
   color: var(--melon);
 }
 
+@media all and (max-width: 768px) {
+  .logo {
+    font-size: 18px;
+  }
+}
+
 .searchBar {
   display: flex;
   align-items: center;
@@ -48,6 +61,17 @@
   outline: none;
   cursor: pointer;
   transition: all 0.1s linear;
+}
+
+@media all and (max-width: 768px) {
+  .searchBar {
+    justify-content: center;
+    width: 38px;
+  }
+
+  .searchBar span {
+    display: none;
+  }
 }
 
 .searchBar:hover {

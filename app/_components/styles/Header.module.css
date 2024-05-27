@@ -7,6 +7,14 @@
   background-position-y: center;
 }
 
+@media all and (max-width: 768px) {
+  .header {
+    height: 25%;
+    background-image: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
 .cover {
   display: flex;
   flex-direction: column;
@@ -27,6 +35,16 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+@media all and (max-width: 768px) {
+  .cover {
+    background-color: #fff;
+  }
+
+  [data-theme='dark'] .cover {
+    background-color: var(--black);
+  }
+}
+
 .listInfo {
   display: flex;
   flex-direction: column;
@@ -45,6 +63,24 @@
   margin: 0;
 }
 
+@media all and (max-width: 768px) {
+  .listInfo {
+    width: 100%;
+    padding: 20px;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 48px;
+    color: var(--black);
+  }
+
+  [data-theme='dark'] .title {
+    color: #fff;
+  }
+}
+
 .section {
   display: flex;
   flex-direction: column;
@@ -52,11 +88,29 @@
   width: 100%;
 }
 
+@media all and (max-width: 768px) {
+  .section {
+    gap: 10px;
+  }
+}
+
 .h2 {
   font-size: 30px;
   color: #fff;
   margin: 0;
   padding: 20px;
+}
+
+@media all and (max-width: 768px) {
+  .h2 {
+    font-size: 24px;
+    color: var(--dark-gray);
+    padding: 0;
+  }
+
+  [data-theme='dark'] .h2 {
+    color: var(--light-gray);
+  }
 }
 
 .tagsSection {

@@ -15,15 +15,13 @@ export default function PostHeader({
   const { title, tag, thumbnail, createdAt } = info;
 
   const headerStyle: CSSProperties = {
-    width: '100%',
-    height: '600px',
     backgroundImage: `url(${thumbnail})`,
-    backgroundSize: 'cover',
-    backgroundPositionY: 'center',
   };
 
   return (
-    <header style={headerStyle}>
+    <header
+      style={headerStyle}
+      className={styles.header}>
       <div className={styles.cover}>
         <div className={styles.postInfo}>
           <Link

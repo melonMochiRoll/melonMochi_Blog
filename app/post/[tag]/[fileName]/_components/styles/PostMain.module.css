@@ -13,12 +13,30 @@
   min-height: 100vh;
 }
 
+@media all and (max-width: 768px) {
+  .main {
+    padding: 0;
+  }
+
+  .aside {
+    display: none;
+  }
+}
+
 /* 마크다운 CSS */
 
 .article {
   width: 800px;
   min-height: 100vh;
   padding-bottom: 10vh;
+}
+
+@media all and (max-width: 768px) {
+  .article {
+    width: 100vw;
+    padding: 0 10px;
+    padding-bottom: 5vh;
+  }
 }
 
 .article h1 {
@@ -33,9 +51,25 @@
   padding-bottom: 25px;
 }
 
+@media all and (max-width: 768px) {
+  .article h1 {
+    font-size: 36px;
+  }
+
+  .article h2 {
+    font-size: 24px;
+  }
+}
+
 .article p {
   font-size: 17px;
   line-height: 2em;
+}
+
+@media all and (max-width: 768px) {
+  .article p {
+    font-size: 14px;
+  }
 }
 
 .article a {
@@ -53,6 +87,22 @@
   border-radius: 10px;
 }
 
+@media all and (max-width: 768px) {
+  .article figure {
+    padding: 0 10px;
+    margin: 0;
+  }
+
+  .article pre {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .article pre code span {
+    white-space: pre-wrap;
+  }
+}
+
 .article :not(pre) > code {
   color: #000;
   background-color: #e9ecef;
@@ -66,6 +116,13 @@
   color: #fff;
   background-color: #282c34;
   border: 1px solid #495057;
+}
+
+@media all and (max-width: 768px) {
+  .article :not(pre) > code {
+    font-size: 13px;
+    padding: 2px 7px;
+  }
 }
 
 .article blockquote {
@@ -83,10 +140,4 @@
 
 .article li {
   margin: 10px 0;
-}
-
-@media all and (max-width: 768px) {
-  .article {
-    width: 100%;
-  }
 }

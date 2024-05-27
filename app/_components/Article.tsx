@@ -13,11 +13,7 @@ export default function Article({
   const { fileName, title, tag, description, thumbnail, createdAt } = article;
 
   const thumbnailStyle: CSSProperties = {
-    width: '100%',
-    height: '150px',
     backgroundImage: `url(${thumbnail})`,
-    backgroundSize: 'cover',
-    backgroundPositionX: 'center',
   };
 
   return (
@@ -44,7 +40,8 @@ export default function Article({
       <div className={styles.right}>
         <Link
           href={`/post/${tag}/${fileName}`}
-          style={thumbnailStyle} />
+          style={thumbnailStyle}
+          className={styles.thumbnail}/>
       </div>
     </article>
   );

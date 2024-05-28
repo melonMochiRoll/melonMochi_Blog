@@ -39,6 +39,7 @@ export default function Article({
       </div>
       <div className={styles.right}>
         <Link
+          rel="preload"
           href={`/post/${tag}/${fileName}`}
           style={thumbnailStyle}
           className={styles.thumbnail}/>

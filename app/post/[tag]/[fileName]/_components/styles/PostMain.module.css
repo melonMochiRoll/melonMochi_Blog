@@ -51,6 +51,13 @@
   padding-bottom: 25px;
 }
 
+.article h3 {
+  font-size: 24px;
+  margin-top: 50px;
+  border-bottom: 2px solid #e3e3e3;
+  padding-bottom: 25px;
+}
+
 @media all and (max-width: 768px) {
   .article h1 {
     font-size: 36px;
@@ -58,6 +65,10 @@
 
   .article h2 {
     font-size: 24px;
+  }
+
+  .article h3 {
+    font-size: 18px;
   }
 }
 

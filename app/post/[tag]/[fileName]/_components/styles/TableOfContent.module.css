@@ -38,3 +38,11 @@
 .inactive {
   padding: 5px 5px 5px 12px;
 }
+
+.active.indent {
+  padding: 5px 5px 5px 30px;
+}
+
+.inactive.indent {
+  padding: 5px 5px 5px 32px;
+}

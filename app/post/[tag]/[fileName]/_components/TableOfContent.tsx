@@ -22,6 +22,15 @@ export default function TableOfContent({
           toc.map((ele: TTableOfContent, idx: number) => {
             const className = ele.id === activeId ? styles.active : styles.inactive;
 
+            if (ele.indent) {
+              return <a
+                key={ele.id + idx}
+                href={ele.id}
+                className={`${className} ${styles.indent}`}>
+                  {ele.title}
+                </a>
+            }
+
             return <a
               key={ele.id + idx}
               href={ele.id}

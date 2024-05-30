@@ -22,4 +22,5 @@ export type TPostDir = {
 export type TTableOfContent = {
   id: string,
   title: string,
+  indent: number,
 };

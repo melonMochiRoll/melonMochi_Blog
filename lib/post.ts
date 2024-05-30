@@ -160,20 +160,25 @@ export async function sortByDate(list: TPostDir[]) {
 }
 
 export async function parseTOC(content: string) {
-  const regex = new RegExp(/##.*$/, 'gim');
+  const regex = new RegExp(/(##|###)(.*$)/, 'gim');
   const searched = content.match(regex);
 
   if (Array.isArray(searched) && searched.length) {
     return searched
       .reduce((acc: TTableOfContent[], str: string) => {
         acc.push({
-          id: '#' + str
-            .replace('## ', '#')
+          id: '#' +
+          str
+            .replace('# ', '')
+            .replace('#', '')
             .replace(/ /g, '-')
             .replace(/[\[\]:!@#$/%^&*()+=,.]/g, '')
             .replace('?', '')
             .toLowerCase(),
-          title: str.replace('## ', ''),
+          title: str
+            .replace('### ', '')
+            .replace('## ', ''),
+          indent: str.startsWith('###') ? 1 : 0,
         });
         return acc;
       }, []);

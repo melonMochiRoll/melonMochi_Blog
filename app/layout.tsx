@@ -3,10 +3,16 @@ import { Metadata } from "next";
 import { ThemeProvider } from 'next-themes';
 import Footer from '@/App/_components/Footer';
 import Navigator from '@/App/_components/Navigator';
+import { blogDescription, blogName } from '@/Lib/const';
 
 export const metadata: Metadata = {
-  title: "MelonMochi's Blog",
-  description: '',
+  title: blogName,
+  description: blogDescription,
+  openGraph: {
+    title: blogName,
+    description: blogDescription,
+    type: 'website',
+  },
 };
 
 type TRootLayoutProps = {
@@ -18,7 +24,6 @@ export default function RootLayout({
   children,
   modal,
 }: TRootLayoutProps) {
-
   return (
     <html suppressHydrationWarning>
       <head>

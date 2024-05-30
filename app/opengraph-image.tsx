@@ -3,8 +3,8 @@ import { ImageResponse } from 'next/og'
 export const runtime = 'edge';
 export const alt = "melonmochi's blog";
 export const size = {
-  width: 1200,
-  height: 630,
+  width: 640,
+  height: 480,
 };
 export const contentType = 'image/png';
  

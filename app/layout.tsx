@@ -3,9 +3,10 @@ import { Metadata } from "next";
 import { ThemeProvider } from 'next-themes';
 import Footer from '@/App/_components/Footer';
 import Navigator from '@/App/_components/Navigator';
-import { blogDescription, blogName } from '@/Lib/const';
+import { blogBaseURL, blogDescription, blogName } from '@/Lib/const';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(blogBaseURL),
   title: blogName,
   description: blogDescription,
   openGraph: {

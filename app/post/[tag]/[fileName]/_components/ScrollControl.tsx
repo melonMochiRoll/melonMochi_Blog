@@ -11,7 +11,6 @@ export default function ScrollControl() {
   const scrollToY = (y: number) => {
     window.scrollTo({
       top: y,
-      behavior: 'smooth'
     });
   };
 

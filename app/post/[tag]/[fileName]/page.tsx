@@ -6,7 +6,7 @@ import Loading from "@/App/post/[tag]/[fileName]/loading";
 import PostHeader from '@/App/post/[tag]/[fileName]/_components/PostHeader';
 import PostMain from '@/App/post/[tag]/[fileName]/_components/PostMain';
 import { getTags, parseTOC } from '@/Lib/post';
-import { blogName } from '@/Lib/const';
+import { blogBaseURL, blogDescription, blogName } from '@/Lib/const';
 
 type TPostPageProps = {
   params: {
@@ -25,6 +25,13 @@ export async function generateMetadata({
 
   return {
     title: `${data.title || ''} | ${blogName}`,
+    description: blogDescription,
+    openGraph: {
+      title: `${data.title || ''} | ${blogName}`,
+      description: blogDescription,
+      images: [ `${blogBaseURL}${data.thumbnail}` ],
+      type: 'article',
+    },
   };
 }
 

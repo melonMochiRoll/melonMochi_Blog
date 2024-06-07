@@ -3,11 +3,18 @@
   width: 100%;
   min-height: 80px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: #fff;
+  padding: 30px 0;
   background-color: #292E28;
-  gap: 15px;
+  gap: 20px;
+}
+
+.footer span {
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .item {

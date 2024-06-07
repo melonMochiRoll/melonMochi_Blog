@@ -15,6 +15,12 @@ export default function Footer() {
         <GitHubIcon fontSize='large' />
         <span>GitHub</span>
       </Link>
+      <a href="https://hits.sh/melon-mochi-dev.vercel.app/">
+        <img
+          alt="Hits"
+          src="https://hits.sh/melon-mochi-dev.vercel.app.svg?view=today-total&style=for-the-badge&label=VISITS&extraCount=18&color=66B3FF&labelColor=66B3FF"/>
+      </a>
+      <span>© 2024 MelonMochi's Blog. All Rights Reserved.</span>
     </footer>
   );
 };

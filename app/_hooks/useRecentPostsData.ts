@@ -2,14 +2,14 @@ import { getRecentPosts } from "@/Lib/post";
 import { TPagination } from "@/Lib/typing";
 import { useEffect, useState } from "react";
 
-type TUsePostDataReturnType = {
+type TUseRecentPostsDataReturnType = {
   pagination: TPagination,
   isLoading: boolean,
   loadMore: () => Promise<void>,
   canLoadMore: boolean,
 };
 
-export default function usePostData(): TUsePostDataReturnType {
+export default function useRecentPostsData(): TUseRecentPostsDataReturnType {
   const [ pagination, setPagination ] = useState<TPagination>({ cursor: 0, posts: [] });
   const [ isLoading, setIsLoading ] = useState(true);
   const [ canLoadMore, setCanLoadMore ] = useState(true);

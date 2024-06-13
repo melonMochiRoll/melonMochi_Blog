@@ -4,7 +4,7 @@ import styles from '@/App/_components/styles/RecentPosts.module.css';
 import Article from '@/App/_components/Article';
 import LoadingPosts from '@/App/_components/LoadingPosts';
 import { TMetaData } from '@/Lib/typing';
-import usePostData from '@/App/_hooks/usePostData';
+import useRecentPostsData from '@/App/_hooks/useRecentPostsData';
 
 export default function RecentPosts() {
   const {
@@ -12,7 +12,7 @@ export default function RecentPosts() {
     isLoading,
     loadMore,
     canLoadMore,
-  } = usePostData();
+  } = useRecentPostsData();
 
   return (
     <main className={styles.main}>

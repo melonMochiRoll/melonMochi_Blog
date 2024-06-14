@@ -15,12 +15,12 @@ export default function usePostsData(tag: string): TUsePostDataReturnType {
   const [ canLoadMore, setCanLoadMore ] = useState(true);
 
   useEffect(() => {
-    getPosts();
+    getPosts(pagination.cursor, tag);
   }, []);
 
-  const getPosts = async () => {
+  const getPosts = async (cursor: number, tag: string) => {
     setIsLoading(true);
-    const result = await getPostsByTag(pagination.cursor, tag);
+    const result = await getPostsByTag(cursor, tag);
 
     if (result.posts.length < 6) {
       setCanLoadMore(false);

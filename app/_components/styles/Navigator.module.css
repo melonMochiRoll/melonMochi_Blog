@@ -20,7 +20,7 @@
 }
 
 [data-theme='dark'] .left {
-  color: #66B3FF;
+  color: var(--primary-color);
 }
 
 .right {

@@ -111,12 +111,12 @@ export async function getRecentPosts(
   limit: number = 6,
 ) {
   const list = await sortByDate(await getPostsListAll());
-  limit = (cursor + 1) * limit;
-  cursor = cursor * limit;
+  const cursorIdx = cursor * limit;
+  const limitIdx = (cursor + 1) * limit;
 
   const posts = await Promise.all(
     list
-    .slice(cursor, limit)
+    .slice(cursorIdx, limitIdx)
     .map(async post => {
       const { metaData } = await getPost(post);
       return metaData;
@@ -132,12 +132,12 @@ export async function getPostsByTag(
   limit: number = 6,
 ) {
   const list = await sortByDate(await getPostsListByTag(tag));
-  limit = (cursor + 1) * limit;
-  cursor = cursor * limit;
+  const cursorIdx = cursor * limit;
+  const limitIdx = (cursor + 1) * limit;
 
   const posts = await Promise.all(
     list
-    .slice(cursor, limit)
+    .slice(cursorIdx, limitIdx)
     .map(async post => {
       const { metaData } = await getPost(post);
       return metaData;

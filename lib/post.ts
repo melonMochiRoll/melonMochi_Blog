@@ -106,37 +106,45 @@ export async function getPost(postDir: TPostDir) {
   return { metaData: result, content };
 }
 
-export async function getRecentPosts(cursor: number) {
+export async function getRecentPosts(
+  cursor: number = 0,
+  limit: number = 6,
+) {
   const list = await sortByDate(await getPostsListAll());
+  limit = (cursor + 1) * limit;
+  cursor = cursor * limit;
 
   const posts = await Promise.all(
     list
-    .slice(cursor, cursor + 6)
+    .slice(cursor, limit)
     .map(async post => {
       const { metaData } = await getPost(post);
       return metaData;
     })
   );
 
-  return { cursor: cursor + posts.length, posts };
+  return posts;
 }
 
 export async function getPostsByTag(
-  cursor: number,
   tag: string,
+  cursor: number = 0,
+  limit: number = 6,
 ) {
   const list = await sortByDate(await getPostsListByTag(tag));
+  limit = (cursor + 1) * limit;
+  cursor = cursor * limit;
 
   const posts = await Promise.all(
     list
-    .slice(cursor, cursor + 6)
+    .slice(cursor, limit)
     .map(async post => {
       const { metaData } = await getPost(post);
       return metaData;
     })
   );
 
-  return { cursor: cursor + posts.length, posts };
+  return posts;
 }
 
 export async function sortByDate(list: TPostDir[]) {

@@ -8,15 +8,15 @@ import useRecentPostsData from '@/App/_hooks/useRecentPostsData';
 
 export default function RecentPosts() {
   const {
-    pagination,
+    posts,
     isLoading,
-    loadMore,
     canLoadMore,
+    setCursor,
   } = useRecentPostsData();
 
   return (
     <main className={styles.main}>
-      {pagination.posts.map((ele: TMetaData, idx: number) => {
+      {posts.map((ele: TMetaData, idx: number) => {
         return (
           <Article
             key={idx}
@@ -26,7 +26,7 @@ export default function RecentPosts() {
       {isLoading && <LoadingPosts />}
       {canLoadMore ?
         <button
-          onClick={loadMore}
+          onClick={() => setCursor(prev => prev + 1)}
           className={styles.loadMore}>
           Load More
         </button> :

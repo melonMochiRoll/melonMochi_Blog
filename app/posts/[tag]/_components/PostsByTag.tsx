@@ -14,15 +14,15 @@ export default function PostsByTag({
   tag,
 }: TPostsByTagProps) {
   const {
-    pagination,
+    posts,
     isLoading,
-    loadMore,
     canLoadMore,
+    setCursor,
   } = usePostsData(tag);
   
   return (
     <main className={styles.main}>
-      {pagination.posts.map((ele: TMetaData, idx: number) => {
+      {posts.map((ele: TMetaData, idx: number) => {
         return (
           <Article
             key={idx}
@@ -32,7 +32,7 @@ export default function PostsByTag({
       {isLoading && <LoadingPosts />}
       {canLoadMore ?
         <button
-          onClick={loadMore}
+          onClick={() => setCursor(prev => prev + 1)}
           className={styles.loadMore}>
           Load More
         </button> :

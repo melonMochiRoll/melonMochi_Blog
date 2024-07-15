@@ -50,6 +50,7 @@
   height: 100%;
   padding: 10px;
   margin: 0;
+  text-align: center;
   list-style: none;
   overflow: auto;
 }

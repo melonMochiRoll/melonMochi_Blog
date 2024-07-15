@@ -1,27 +1,31 @@
 import { useEffect, useState } from "react";
 import useInput from "./useInput";
 import { getPostsByQuery } from "@/Lib/post";
-import { TPagination } from "@/Lib/typing";
+import { TMetaData } from "@/Lib/typing";
 
 type TUseSearchReturnType = {
   query: string,
   onChangeQuery: (e: any) => void,
-  pagination: TPagination,
+  posts: TMetaData[],
   isLoading: boolean,
-  loadMore: () => Promise<void>,
   canLoadMore: boolean,
+  setCursor: React.Dispatch<React.SetStateAction<number>>,
 };
 
 export default function useSearch(): TUseSearchReturnType {
   const [ query, onChangeQuery ] = useInput('');
-  const [ pagination, setPagination ] = useState<TPagination>({ cursor: 0, posts: [] });
+  const [ posts, setPosts ] = useState<TMetaData[]>([]);
+  const [ cursor, setCursor ] = useState(0);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ canLoadMore, setCanLoadMore ] = useState(true);
 
   useEffect(() => {
     if (query) {
       const delay = setTimeout(() => {
-        getSearchResult(0, query);
+        setCursor(0);
+        setCanLoadMore(true);
+        setIsLoading(true);
+        getSearchResult(query);
       }, 500);
   
       return () => {
@@ -30,41 +34,42 @@ export default function useSearch(): TUseSearchReturnType {
     }
   }, [query]);
 
-  const getSearchResult = async (currentCursor: number, query: string) => {
-    setIsLoading(true);
-    const { cursor, posts } = await getPostsByQuery(currentCursor, query);
-
-    if (posts.length < 10) {
-      setCanLoadMore(false);
+  useEffect(() => {
+    if (cursor > 0) {
+      setCanLoadMore(true);
+      setIsLoading(true);
+      loadMore(query, cursor);
     }
+  }, [cursor]);
 
-    setPagination({ cursor, posts });
-    setIsLoading(false);
+  const getSearchResult = (query: string) => {
+    getPostsByQuery(query)
+      .then(res => {
+        if (res?.length < 10) {
+          setCanLoadMore(false);
+        }
+        setPosts(res);
+      })
+      .finally(() => setIsLoading(false));
   };
 
-  const loadMore = async () => {
-    setIsLoading(true);
-    const { cursor, posts } = await getPostsByQuery(pagination.cursor, query);
-
-    if (posts.length < 10) {
-      setCanLoadMore(false);
-    }
-
-    setPagination((prev: TPagination) => {
-      return {
-        cursor,
-        posts: [ ...prev.posts, ...posts ],
-      };
-    });
-    setIsLoading(false);
+  const loadMore = (query: string, currentCursor: number) => {
+    getPostsByQuery(query, currentCursor)
+      .then(res => {
+        if (res?.length < 10) {
+          setCanLoadMore(false);
+        }
+        setPosts(prev => [ ...prev, ...res ]);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return {
     query,
     onChangeQuery,
-    pagination,
+    posts,
     isLoading,
-    loadMore,
     canLoadMore,
+    setCursor,
   };
 }

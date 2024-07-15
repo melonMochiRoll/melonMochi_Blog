@@ -12,12 +12,12 @@ export default function SearchModal() {
   const router = useRouter();
   const pathname = usePathname();
   const {
-    pagination,
+    posts,
     isLoading,
     query,
     onChangeQuery,
-    loadMore,
-    canLoadMore
+    canLoadMore,
+    setCursor,
   } = useSearch();
 
   if (!pathname.includes('search')) {
@@ -43,10 +43,10 @@ export default function SearchModal() {
         </header>
         <SearchResult
           query={query}
-          pagination={pagination}
+          posts={posts}
           isLoading={isLoading}
-          loadMore={loadMore}
-          canLoadMore={canLoadMore} />
+          canLoadMore={canLoadMore}
+          setCursor={setCursor} />
         <footer className={styles.footer} />
       </div>
     </Modal>

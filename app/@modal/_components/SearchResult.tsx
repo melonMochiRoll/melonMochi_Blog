@@ -6,25 +6,24 @@ import { useRouter } from 'next/navigation';
 import SearchIcon from '@mui/icons-material/SearchRounded';
 import ErrorIcon from '@mui/icons-material/ErrorOutline';
 import { CircularProgress } from '@mui/material';
-import { TMetaData, TPagination } from '@/Lib/typing';
+import { TMetaData } from '@/Lib/typing';
 
 type TSearchResultProps = {
   query: string,
-  pagination: TPagination,
+  posts: TMetaData[],
   isLoading: boolean,
-  loadMore: () => Promise<void>,
   canLoadMore: boolean,
+  setCursor: React.Dispatch<React.SetStateAction<number>>,
 };
 
 export default function SearchResult({
   query,
-  pagination,
+  posts,
   isLoading,
-  loadMore,
   canLoadMore,
+  setCursor,
 }: TSearchResultProps) {
   const router = useRouter();
-  const { posts } = pagination;
 
   if (!query) {
     return (
@@ -66,6 +65,19 @@ export default function SearchResult({
               );
             })
           }
+          {
+            canLoadMore ?
+            <button
+              onClick={() => {}}
+              className={recentPostsStyles.loadMore}>
+              Load More
+            </button> :
+            <button
+              disabled
+              className={recentPostsStyles.loadMore}>
+              목록 없음
+            </button>
+          }
         </ul> :
         <>
           <ErrorIcon className={styles.errorIcon} />
@@ -73,19 +85,6 @@ export default function SearchResult({
             {`"${query}" 에 대한 검색 결과가 없습니다.`}
           </span>
         </>
-      }
-      {
-        canLoadMore ?
-        <button
-          onClick={loadMore}
-          className={recentPostsStyles.loadMore}>
-          Load More
-        </button> :
-        <button
-          disabled
-          className={recentPostsStyles.loadMore}>
-          목록 없음
-        </button>
       }
     </main>
   );

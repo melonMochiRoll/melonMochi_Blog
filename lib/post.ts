@@ -51,25 +51,31 @@ export async function getPostsListByTag(tag: string) {
 }
 
 export async function getPostsByQuery(
-  cursor: number,
   query: string,
+  cursor: number = 0,
+  limit: number = 10,
 ) {
   const list = await getPostsListAll();
-  const posts: TMetaData[] = [];
+  const cursorIdx = cursor * limit;
+  const limitIdx = (cursor + 1) * limit;
 
-  for (let i=cursor; i<list.length; i++) {
-    if (posts.length > 9) break;
+  const posts = await Promise.all(
+    await list
+      .reduce(async (acc: Promise<TMetaData[]>, postDir: TPostDir) => {
+        const { metaData, content } = await getPost(postDir);
+        const arr = await acc;
 
-    const { metaData, content } = await getPost(list[i]);
-    const result = content.search(query);
-    ++cursor;
+        const result = content.includes(query);
 
-    if (result > -1) {
-      posts.push(metaData);
-    }
-  }
+        if (result) {
+          arr.push(metaData);
+        }
 
-  return { cursor, posts };
+        return arr;
+      }, Promise.resolve([]))
+    );
+
+  return posts.slice(cursorIdx, limitIdx);
 }
 
 export async function getPostsListAll() {

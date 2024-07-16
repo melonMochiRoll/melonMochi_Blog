@@ -41,6 +41,7 @@ export default function Article({
             fill
             className={styles.img}
             src={thumbnail}
+            sizes='(max-width: 768px) 550px, 220px'
             alt={title} />
         </Link>
       </div>

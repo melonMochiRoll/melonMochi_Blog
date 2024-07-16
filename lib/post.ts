@@ -3,22 +3,32 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { TMetaData, TPostDir, TTableOfContent } from './typing';
+import { TMetaData, TPostDir, TTableOfContent, TTags } from './typing';
 
 export async function getTags() {
-  const dir = path.join(process.cwd(), 'posts');
+  try {
+    const dir = path.join(process.cwd(), 'posts');
 
-  const result = await new Promise<string[]>((resolve, reject) => {
-    fs.readdir(dir, (err, files) => {
-      if (err) {
-        reject([]);
-      }
-
-      resolve(files);
-    });
-  });
+    const result = await new Promise<TTags[]>((resolve, reject) => {
+      fs.readdir(dir, (err, files) => {
+        if (err) {
+          reject([]);
+        }
+        
+        const numberOfPost = files.map(filesDir => {
+          const postsArr = fs.readdirSync(`${dir}/${filesDir}`);
+          return { tag: filesDir, count: postsArr?.length };
+        });
   
-  return result;
+        resolve(numberOfPost);
+      });
+    });
+    
+    return result;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
 }
 
 export async function getPostsListByTag(tag: string) {
@@ -81,11 +91,11 @@ export async function getPostsByQuery(
 export async function getPostsListAll() {
   const tags = await getTags();
   
-  const list = await tags.reduce(async (acc: Promise<TPostDir[]>, tag: string) => {
-    const list = await getPostsListByTag(tag);
+  const list = await tags.reduce(async (acc: Promise<TPostDir[]>, tags: TTags) => {
+    const result = await getPostsListByTag(tags?.tag);
     const arr = await acc;
 
-    arr.push(...list);
+    arr.push(...result);
     return arr;
   }, Promise.resolve([]));
 
@@ -122,11 +132,11 @@ export async function getRecentPosts(
 
   const posts = await Promise.all(
     list
-    .slice(cursorIdx, limitIdx)
-    .map(async post => {
-      const { metaData } = await getPost(post);
-      return metaData;
-    })
+      .slice(cursorIdx, limitIdx)
+      .map(async post => {
+        const { metaData } = await getPost(post);
+        return metaData;
+      })
   );
 
   return posts;

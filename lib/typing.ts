@@ -19,3 +19,8 @@ export type TTableOfContent = {
   title: string,
   indent: number,
 };
+
+export type TTags = {
+  tag: string,
+  count: number,
+};

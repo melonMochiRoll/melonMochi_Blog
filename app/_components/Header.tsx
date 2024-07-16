@@ -1,6 +1,7 @@
 import styles from '@/App/_components/styles/Header.module.css';
 import Tag from '@/App/_components/Tag';
 import { getTags } from '@/Lib/post';
+import { TTags } from '@/Lib/typing';
 
 type THeaderProps = {
   tag?: string,
@@ -24,12 +25,12 @@ export default async function Header({
             </h2>
             <section className={styles.tagsSection}>
               {
-                tags.map((ele: string, idx: number) => {
+                tags.map((ele: TTags, idx: number) => {
                   return (
                     <Tag 
                       key={idx}
-                      tagName={ele}
-                      isActive={ele === tag} />
+                      tags={ele}
+                      isActive={ele?.tag === tag} />
                   );
                 })
               }

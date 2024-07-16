@@ -1,16 +1,17 @@
 import styles from '@/App/_components/styles/Tag.module.css';
+import { TTags } from '@/Lib/typing';
 import Link from 'next/link';
 
 type TTagProps = {
-  tagName: string,
+  tags: TTags,
   isActive: boolean,
 };
 
 export default function Tag({
-  tagName,
+  tags,
   isActive,
 }: TTagProps) {
-  const href = isActive ? '/' : `/posts/${tagName}`;
+  const href = isActive ? '/' : `/posts/${tags?.tag}`;
   const status = isActive ? styles.active : styles.inactive;
   
   return (
@@ -19,7 +20,7 @@ export default function Tag({
       scroll={false}
       href={href}>
       <div className={`${styles.tag} ${status}`}>
-        {tagName}
+        {`${tags?.tag} (${tags?.count})`}
       </div>
     </Link>
   );

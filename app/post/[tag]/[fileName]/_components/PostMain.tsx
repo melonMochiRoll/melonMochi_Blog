@@ -2,13 +2,13 @@ import styles from '@/App/post/[tag]/[fileName]/_components/styles/PostMain.modu
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypePrettyCode from 'rehype-pretty-code';
 import Comments from './Comments';
-import { TTableOfContent } from '@/Lib/typing';
+import { TTableOfContent, TTags } from '@/Lib/typing';
 import rehypeSlug from 'rehype-slug';
 import TableOfContent from '@/App/post/[tag]/[fileName]/_components/TableOfContent';
 import TagList from '@/App/post/[tag]/[fileName]/_components/TagList';
 
 type TPostMainProps = {
-  tags: string[],
+  tags: TTags[],
   toc: TTableOfContent[],
   content: string,
 }

@@ -17,7 +17,7 @@ export default function PostsByTag({
     posts,
     isLoading,
     canLoadMore,
-    setCursor,
+    nextCursor,
   } = usePostsData(tag);
   
   return (
@@ -32,7 +32,7 @@ export default function PostsByTag({
       {isLoading && <LoadingPosts />}
       {canLoadMore ?
         <button
-          onClick={() => setCursor(prev => prev + 1)}
+          onClick={nextCursor}
           className={styles.loadMore}>
           Load More
         </button> :

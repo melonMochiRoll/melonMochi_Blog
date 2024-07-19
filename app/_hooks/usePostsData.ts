@@ -6,7 +6,7 @@ type TUsePostDataReturnType = {
   posts: TMetaData[],
   isLoading: boolean,
   canLoadMore: boolean,
-  setCursor: React.Dispatch<React.SetStateAction<number>>,
+  nextCursor: () => void,
 };
 
 export default function usePostsData(tag: string): TUsePostDataReturnType {
@@ -45,6 +45,6 @@ export default function usePostsData(tag: string): TUsePostDataReturnType {
     posts,
     isLoading,
     canLoadMore,
-    setCursor,
+    nextCursor: () => setCursor(prev => prev + 1),
   };
 }

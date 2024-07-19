@@ -17,7 +17,7 @@ export default function SearchModal() {
     query,
     onChangeQuery,
     canLoadMore,
-    setCursor,
+    nextCursor,
   } = useSearch();
 
   if (!pathname.includes('search')) {
@@ -46,7 +46,7 @@ export default function SearchModal() {
           posts={posts}
           isLoading={isLoading}
           canLoadMore={canLoadMore}
-          setCursor={setCursor} />
+          nextCursor={nextCursor} />
         <footer className={styles.footer} />
       </div>
     </Modal>

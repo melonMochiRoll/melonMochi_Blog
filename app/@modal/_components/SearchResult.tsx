@@ -13,7 +13,7 @@ type TSearchResultProps = {
   posts: TMetaData[],
   isLoading: boolean,
   canLoadMore: boolean,
-  setCursor: React.Dispatch<React.SetStateAction<number>>,
+  nextCursor: () => void,
 };
 
 export default function SearchResult({
@@ -21,7 +21,7 @@ export default function SearchResult({
   posts,
   isLoading,
   canLoadMore,
-  setCursor,
+  nextCursor,
 }: TSearchResultProps) {
   const router = useRouter();
 
@@ -68,7 +68,7 @@ export default function SearchResult({
           {
             canLoadMore ?
             <button
-              onClick={() => {}}
+              onClick={nextCursor}
               className={recentPostsStyles.loadMore}>
               Load More
             </button> :

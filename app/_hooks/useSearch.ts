@@ -9,7 +9,7 @@ type TUseSearchReturnType = {
   posts: TMetaData[],
   isLoading: boolean,
   canLoadMore: boolean,
-  setCursor: React.Dispatch<React.SetStateAction<number>>,
+  nextCursor: () => void,
 };
 
 export default function useSearch(): TUseSearchReturnType {
@@ -70,6 +70,6 @@ export default function useSearch(): TUseSearchReturnType {
     posts,
     isLoading,
     canLoadMore,
-    setCursor,
+    nextCursor: () => setCursor(prev => prev + 1),
   };
 }

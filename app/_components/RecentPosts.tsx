@@ -11,7 +11,7 @@ export default function RecentPosts() {
     posts,
     isLoading,
     canLoadMore,
-    setCursor,
+    nextCursor,
   } = useRecentPostsData();
 
   return (
@@ -26,7 +26,7 @@ export default function RecentPosts() {
       {isLoading && <LoadingPosts />}
       {canLoadMore ?
         <button
-          onClick={() => setCursor(prev => prev + 1)}
+          onClick={nextCursor}
           className={styles.loadMore}>
           Load More
         </button> :

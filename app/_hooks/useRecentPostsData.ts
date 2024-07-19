@@ -6,7 +6,7 @@ type TUseRecentPostsDataReturnType = {
   posts: TMetaData[],
   isLoading: boolean,
   canLoadMore: boolean,
-  setCursor: React.Dispatch<React.SetStateAction<number>>,
+  nextCursor: () => void,
 };
 
 export default function useRecentPostsData(): TUseRecentPostsDataReturnType {
@@ -45,6 +45,6 @@ export default function useRecentPostsData(): TUseRecentPostsDataReturnType {
     posts,
     isLoading,
     canLoadMore,
-    setCursor,
+    nextCursor: () => setCursor(prev => prev + 1),
   };
 }

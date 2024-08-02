@@ -1,4 +1,7 @@
 import styles from '@/App/post/[tag]/[fileName]/_components/styles/PostMain.module.css';
+import { join } from 'path';
+import Image from 'next/image';
+import sizeOf from 'image-size';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypePrettyCode from 'rehype-pretty-code';
 import Comments from './Comments';
@@ -34,7 +37,21 @@ export default function PostMain({
                 rehypeSlug,
               ],
             }
-          }} />
+          }}
+          components={{
+            img: (props) => {
+              if (props.src) {
+                const { width, height } = sizeOf(join('public', props.src || ''));
+
+                return <Image
+                  src={props.src || ''}
+                  width={width}
+                  height={height}
+                  alt={props.alt || 'image'} />
+              }
+              return <img {...props} />
+            }
+          }}/>
         <Comments />
       </article>
       <aside className={styles.aside}>

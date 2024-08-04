@@ -1,13 +1,12 @@
 
-export type TPostInfo = {
+export type TMetaData = {
   title: string,
   tag: string,
   description: string,
   thumbnail: string,
   createdAt: string,
+  fileName: string,
 };
-
-export type TMetaData = TPostInfo & { fileName: string };
 
 export type TPostDir = {
   tag: string,

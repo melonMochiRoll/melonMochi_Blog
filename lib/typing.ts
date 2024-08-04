@@ -1,5 +1,5 @@
 
-export type TMetaData = {
+export type TMetadata = {
   title: string,
   tag: string,
   description: string,

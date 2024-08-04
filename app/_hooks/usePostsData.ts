@@ -24,6 +24,9 @@ export default function usePostsData(tag: string): TUsePostDataReturnType {
           }
           setPosts(res);
         })
+        .catch(() => {
+          setPosts([]);
+        })
         .finally(() => setIsLoading(false));
     }
   }, []);
@@ -36,6 +39,9 @@ export default function usePostsData(tag: string): TUsePostDataReturnType {
             setCanLoadMore(false);
           }
           setPosts((prev: TMetadata[]) => [ ...prev, ...res ]);
+        })
+        .catch(() => {
+          setPosts([]);
         })
         .finally(() => setIsLoading(false))
     }

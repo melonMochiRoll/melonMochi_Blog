@@ -1,16 +1,16 @@
 import { getPostsByTag } from "@/Lib/post";
-import { TMetaData } from "@/Lib/typing";
+import { TMetadata } from "@/Lib/typing";
 import { useEffect, useState } from "react";
 
 type TUsePostDataReturnType = {
-  posts: TMetaData[],
+  posts: TMetadata[],
   isLoading: boolean,
   canLoadMore: boolean,
   nextCursor: () => void,
 };
 
 export default function usePostsData(tag: string): TUsePostDataReturnType {
-  const [ posts, setPosts ] = useState<TMetaData[]>([]);
+  const [ posts, setPosts ] = useState<TMetadata[]>([]);
   const [ cursor, setCursor ] = useState(0);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ canLoadMore, setCanLoadMore ] = useState(true);
@@ -35,7 +35,7 @@ export default function usePostsData(tag: string): TUsePostDataReturnType {
           if (res?.length < 6) {
             setCanLoadMore(false);
           }
-          setPosts((prev: TMetaData[]) => [ ...prev, ...res ]);
+          setPosts((prev: TMetadata[]) => [ ...prev, ...res ]);
         })
         .finally(() => setIsLoading(false))
     }

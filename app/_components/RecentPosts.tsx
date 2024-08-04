@@ -3,7 +3,7 @@
 import styles from '@/App/_components/styles/RecentPosts.module.css';
 import Article from '@/App/_components/Article';
 import LoadingPosts from '@/App/_components/LoadingPosts';
-import { TMetaData } from '@/Lib/typing';
+import { TMetadata } from '@/Lib/typing';
 import useRecentPostsData from '@/App/_hooks/useRecentPostsData';
 
 export default function RecentPosts() {
@@ -16,7 +16,7 @@ export default function RecentPosts() {
 
   return (
     <main className={styles.main}>
-      {posts.map((ele: TMetaData, idx: number) => {
+      {posts.map((ele: TMetadata, idx: number) => {
         return (
           <Article
             key={idx}

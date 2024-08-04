@@ -167,20 +167,29 @@ export async function getPostsByTag(
   cursor: number = 0,
   limit: number = 6,
 ) {
-  const list = await sortByDate(await getPostsListByTag(tag));
-  const cursorIdx = cursor * limit;
-  const limitIdx = (cursor + 1) * limit;
+  try {
+    const list = await sortByDate(await getPostsListByTag(tag));
+    const cursorIdx = cursor * limit;
+    const limitIdx = (cursor + 1) * limit;
+  
+    const posts = await Promise.all(
+      list
+      .slice(cursorIdx, limitIdx)
+      .map(async post => {
+        const { metadata } = await getPost(post);
+        return metadata;
+      })
+    );
 
-  const posts = await Promise.all(
-    list
-    .slice(cursorIdx, limitIdx)
-    .map(async post => {
-      const { metadata } = await getPost(post);
-      return metadata;
-    })
-  );
-
-  return posts;
+    if (!isArrayOfMetadata(posts)) {
+      throw new Error('is not metadataArray');
+    }
+  
+    return posts;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
 }
 
 export async function sortByDate(list: TPostDir[]) {

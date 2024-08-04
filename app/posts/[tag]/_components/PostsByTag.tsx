@@ -5,6 +5,7 @@ import LoadingPosts from "@/App/_components/LoadingPosts";
 import styles from "@/App/_components/styles/RecentPosts.module.css";
 import usePostsData from "@/App/_hooks/usePostsData";
 import { TMetadata } from "@/Lib/typing";
+import { useRouter } from "next/navigation";
 
 type TPostsByTagProps = {
   tag: string,
@@ -13,12 +14,17 @@ type TPostsByTagProps = {
 export default function PostsByTag({
   tag,
 }: TPostsByTagProps) {
+  const router = useRouter();
   const {
     posts,
     isLoading,
     canLoadMore,
     nextCursor,
   } = usePostsData(tag);
+
+  if (!isLoading && posts?.length < 1) {
+    router.push('/not-found');
+  }
   
   return (
     <main className={styles.main}>

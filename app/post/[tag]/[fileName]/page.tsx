@@ -49,7 +49,7 @@ export default async function PostPage({
   return (
     <Suspense fallback={<Loading />}>
       <PostHeader
-        info={metadata} />
+        metadata={metadata} />
       <PostMain
         tags={tags}
         toc={toc}

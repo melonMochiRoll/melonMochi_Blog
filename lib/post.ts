@@ -3,7 +3,8 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { TMetaData, TPostDir, TTableOfContent, TTags } from './typing';
+import { TMetadata, TPostDir, TPostResponse, TTableOfContent, TTags } from './typing';
+import { isArrayOfMetadata, isPostResponse } from './typeGuards';
 
 export async function getTags() {
   try {
@@ -71,14 +72,16 @@ export async function getPostsByQuery(
 
   const posts = await Promise.all(
     await list
-      .reduce(async (acc: Promise<TMetaData[]>, postDir: TPostDir) => {
-        const { metaData, content } = await getPost(postDir);
+      .reduce(async (acc: Promise<TMetadata[]>, postDir: TPostDir) => {
+        const { metadata, content } = await getPost(postDir);
         const arr = await acc;
 
-        const result = content.includes(query);
+        if (!metadata) {
+          return arr;
+        }
 
-        if (result) {
-          arr.push(metaData);
+        if (content.includes(query)) {
+          arr.push(metadata);
         }
 
         return arr;
@@ -102,44 +105,61 @@ export async function getPostsListAll() {
   return list;
 }
 
-export async function getPost(postDir: TPostDir) {
-  const { tag, fileName } = postDir;
-  const dir = path.join(process.cwd(), 'posts', tag, `${fileName}.mdx`);
-
-  const source = await new Promise<string>((resolve, reject) => {
-    fs.readFile(dir, 'utf-8', (err, post) => {
-      if (err) {
-        reject('');
-      }
-
-      resolve(post);
+export async function getPost({ tag, fileName }: TPostDir): Promise<TPostResponse> {
+  try {
+    const dir = path.join(process.cwd(), 'posts', tag, `${fileName}.mdx`);
+  
+    const source = await new Promise<string>((resolve, reject) => {
+      fs.readFile(dir, 'utf-8', (err, post) => {
+        if (err) {
+          reject('');
+        }
+  
+        resolve(post);
+      });
     });
-  });
+  
+    const { data, content } = matter(source);
+    const result = { metadata: data, content };
+    
+    if (!isPostResponse(result)) {
+      throw new Error('is not postResponse');
+    }
 
-  const { data, content } = matter(source);
-  const result = Object.assign(data, { fileName }) as TMetaData;
-
-  return { metaData: result, content };
+    return result;
+  } catch (err) {
+    console.error(err);
+    return { metadata: null, content: '' };
+  }
 }
 
 export async function getRecentPosts(
   cursor: number = 0,
   limit: number = 6,
-) {
-  const list = await sortByDate(await getPostsListAll());
-  const cursorIdx = cursor * limit;
-  const limitIdx = (cursor + 1) * limit;
+): Promise<TMetadata[]> {
+  try {
+    const list = await sortByDate(await getPostsListAll());
+    const cursorIdx = cursor * limit;
+    const limitIdx = (cursor + 1) * limit;
+  
+    const posts = await Promise.all(
+      list
+        .slice(cursorIdx, limitIdx)
+        .map(async post => {
+          const { metadata } = await getPost(post);
+          return metadata;
+        })
+    );
 
-  const posts = await Promise.all(
-    list
-      .slice(cursorIdx, limitIdx)
-      .map(async post => {
-        const { metaData } = await getPost(post);
-        return metaData;
-      })
-  );
-
-  return posts;
+    if (!isArrayOfMetadata(posts)) {
+      throw new Error('is not metadataArray');
+    }
+  
+    return posts;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
 }
 
 export async function getPostsByTag(
@@ -155,8 +175,8 @@ export async function getPostsByTag(
     list
     .slice(cursorIdx, limitIdx)
     .map(async post => {
-      const { metaData } = await getPost(post);
-      return metaData;
+      const { metadata } = await getPost(post);
+      return metadata;
     })
   );
 

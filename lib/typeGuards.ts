@@ -22,7 +22,6 @@ export const isMetadata = (obj: any): obj is TMetadata => {
 export const isPostResponse = (obj: any): obj is TPostResponse => {
   return typeof obj === 'object' &&
   (obj ?? false) &&
-  typeof obj.success === 'boolean' &&
-  isMetadata(obj.metaData) &&
+  isMetadata(obj.metadata) &&
   typeof obj.content === 'string';
 };

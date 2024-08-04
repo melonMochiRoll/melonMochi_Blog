@@ -1,18 +1,17 @@
 import styles from '@/App/post/[tag]/[fileName]/_components/styles/PostHeader.module.css';
+import { TMetadata } from '@/Lib/typing';
 import CalendarIcon from '@mui/icons-material/CalendarMonthOutlined';
 import Link from 'next/link';
 import { CSSProperties } from 'react';
 
 type TPostHeaderProps = {
-  info: {
-    [key: string]: any,
-  },
+  metadata: TMetadata,
 };
 
 export default function PostHeader({
-  info,
+  metadata,
 }: TPostHeaderProps) {
-  const { title, tag, thumbnail, createdAt } = info;
+  const { title, tag, thumbnail, createdAt } = metadata;
 
   const headerStyle: CSSProperties = {
     backgroundImage: `url(${thumbnail})`,

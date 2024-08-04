@@ -23,3 +23,8 @@ export type TTags = {
   tag: string,
   count: number,
 };
+
+export type TPostResponse = {
+  metadata: TMetadata | null,
+  content: string,
+};

@@ -24,3 +24,7 @@
   gap: 10px;
   cursor: pointer;
 }
+
+.item:hover {
+  color: var(--primary-color);
+}

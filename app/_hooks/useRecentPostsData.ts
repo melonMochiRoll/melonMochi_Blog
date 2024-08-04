@@ -1,16 +1,16 @@
 import { getRecentPosts } from "@/Lib/post";
-import { TMetaData } from "@/Lib/typing";
+import { TMetadata } from "@/Lib/typing";
 import { useEffect, useState } from "react";
 
 type TUseRecentPostsDataReturnType = {
-  posts: TMetaData[],
+  posts: TMetadata[],
   isLoading: boolean,
   canLoadMore: boolean,
   nextCursor: () => void,
 };
 
 export default function useRecentPostsData(): TUseRecentPostsDataReturnType {
-  const [ posts, setPosts ] = useState<TMetaData[]>([]);
+  const [ posts, setPosts ] = useState<TMetadata[]>([]);
   const [ cursor, setCursor ] = useState(0);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ canLoadMore, setCanLoadMore ] = useState(true);
@@ -24,6 +24,9 @@ export default function useRecentPostsData(): TUseRecentPostsDataReturnType {
           }
           setPosts(res);
         })
+        .catch(() => {
+          setPosts([]);
+        })
         .finally(() => setIsLoading(false));
     }
   }, []);
@@ -35,7 +38,10 @@ export default function useRecentPostsData(): TUseRecentPostsDataReturnType {
           if (res?.length < 6) {
             setCanLoadMore(false);
           }
-          setPosts((prev: TMetaData[]) => [ ...prev, ...res ]);
+          setPosts((prev: TMetadata[]) => [ ...prev, ...res ]);
+        })
+        .catch(() => {
+          setPosts([]);
         })
         .finally(() => setIsLoading(false));
     }

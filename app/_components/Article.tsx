@@ -1,16 +1,21 @@
 import styles from '@/App/_components/styles/Article.module.css';
-import { TMetaData } from '@/Lib/typing';
+import { TMetadata } from '@/Lib/typing';
 import Link from 'next/link';
 import Image from 'next/image';
+import { isMetadata } from '@/Lib/typeGuards';
 
 type TArticleProps = {
-  article: TMetaData,
+  article: TMetadata,
 };
 
 export default function Article({
   article,
 }: TArticleProps) {
   const { fileName, title, tag, description, thumbnail, createdAt } = article;
+
+  if (!isMetadata(article)) {
+    return;
+  }
 
   return (
     <article className={styles.article}>

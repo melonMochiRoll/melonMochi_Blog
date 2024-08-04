@@ -4,7 +4,7 @@ import Article from "@/App/_components/Article";
 import LoadingPosts from "@/App/_components/LoadingPosts";
 import styles from "@/App/_components/styles/RecentPosts.module.css";
 import usePostsData from "@/App/_hooks/usePostsData";
-import { TMetaData } from "@/Lib/typing";
+import { TMetadata } from "@/Lib/typing";
 
 type TPostsByTagProps = {
   tag: string,
@@ -22,7 +22,7 @@ export default function PostsByTag({
   
   return (
     <main className={styles.main}>
-      {posts.map((ele: TMetaData, idx: number) => {
+      {posts.map((ele: TMetadata, idx: number) => {
         return (
           <Article
             key={idx}

@@ -1,11 +1,12 @@
 import fs from 'fs';
 import path from "path";
+import { notFound } from 'next/navigation';
 import matter from 'gray-matter';
 import { Suspense } from "react";
 import Loading from "@/App/post/[tag]/[fileName]/loading";
 import PostHeader from '@/App/post/[tag]/[fileName]/_components/PostHeader';
 import PostMain from '@/App/post/[tag]/[fileName]/_components/PostMain';
-import { getTags, parseTOC } from '@/Lib/post';
+import { getPost, getTags, parseTOC } from '@/Lib/post';
 import { blogBaseURL, blogDescription, blogName } from '@/Lib/const';
 
 type TPostPageProps = {
@@ -19,17 +20,15 @@ export async function generateMetadata({
   params,
 }: TPostPageProps) {
   const { tag, fileName } = params;
-  const filePath = path.join(process.cwd(), 'posts', tag, `${fileName}.mdx`);
-  const mdxSource = fs.readFileSync(filePath, 'utf-8');
-  const { data } = matter(mdxSource);
+  const { metadata } = await getPost({ tag, fileName });
 
   return {
-    title: `${data.title || ''} | ${blogName}`,
+    title: `${metadata?.title || ''} | ${blogName}`,
     description: blogDescription,
     openGraph: {
-      title: `${data.title || ''} | ${blogName}`,
+      title: `${metadata?.title || ''} | ${blogName}`,
       description: blogDescription,
-      images: [ `${blogBaseURL}${data.thumbnail}` ],
+      images: [ `${blogBaseURL}${metadata?.thumbnail}` ],
       type: 'article',
     },
   };
@@ -40,15 +39,17 @@ export default async function PostPage({
 }: TPostPageProps) {
   const { tag, fileName } = params;
   const tags = await getTags();
-  const filePath = path.join(process.cwd(), 'posts', tag, `${fileName}.mdx`);
-  const mdxSource = fs.readFileSync(filePath, 'utf-8');
-  const { data, content } = matter(mdxSource);
+  const { metadata, content } = await getPost({ tag, fileName });
   const toc = await parseTOC(content);
+
+  if (!metadata) {
+    notFound();
+  }
 
   return (
     <Suspense fallback={<Loading />}>
       <PostHeader
-        info={data} />
+        info={metadata} />
       <PostMain
         tags={tags}
         toc={toc}

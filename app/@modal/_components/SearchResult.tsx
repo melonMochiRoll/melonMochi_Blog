@@ -6,11 +6,11 @@ import { useRouter } from 'next/navigation';
 import SearchIcon from '@mui/icons-material/SearchRounded';
 import ErrorIcon from '@mui/icons-material/ErrorOutline';
 import { CircularProgress } from '@mui/material';
-import { TMetaData } from '@/Lib/typing';
+import { TMetadata } from '@/Lib/typing';
 
 type TSearchResultProps = {
   query: string,
-  posts: TMetaData[],
+  posts: TMetadata[],
   isLoading: boolean,
   canLoadMore: boolean,
   nextCursor: () => void,
@@ -51,7 +51,7 @@ export default function SearchResult({
         posts.length ?
         <ul className={styles.searchList}>
           {
-            posts.map((ele: TMetaData, idx: number) => {
+            posts.map((ele: TMetadata, idx: number) => {
               const { fileName, title, tag } = ele;
 
               return (

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import useInput from "./useInput";
 import { getPostsByQuery } from "@/Lib/post";
-import { TMetaData } from "@/Lib/typing";
+import { TMetadata } from "@/Lib/typing";
 
 type TUseSearchReturnType = {
   query: string,
   onChangeQuery: (e: any) => void,
-  posts: TMetaData[],
+  posts: TMetadata[],
   isLoading: boolean,
   canLoadMore: boolean,
   nextCursor: () => void,
@@ -14,7 +14,7 @@ type TUseSearchReturnType = {
 
 export default function useSearch(): TUseSearchReturnType {
   const [ query, onChangeQuery ] = useInput('');
-  const [ posts, setPosts ] = useState<TMetaData[]>([]);
+  const [ posts, setPosts ] = useState<TMetadata[]>([]);
   const [ cursor, setCursor ] = useState(0);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ canLoadMore, setCanLoadMore ] = useState(true);

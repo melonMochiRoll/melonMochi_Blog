@@ -26,39 +26,44 @@ export async function getTags() {
     });
     
     return result;
-  } catch (err) {
-    console.error(err);
-    return [];
+  } catch (err: any) {
+    console.error(`getTags : ${err.name} : ${err.message}`);
+    throw err;
   }
 }
 
 export async function getPostsListByTag(tag: string) {
-  const dir = path.join(process.cwd(), 'posts', tag);
+  try {
+    const dir = path.join(process.cwd(), 'posts', tag);
 
-  const result = await new Promise<TPostDir[]>((resolve, reject) => {
-    fs.readdir(dir, (err, files) => {
-      if (err) {
-        reject([]);
-      }
-      
-      const result = files.reduce((acc: TPostDir[], file: string) => {
-        if (!file) {
-          return acc;
+    const result = await new Promise<TPostDir[]>((resolve, reject) => {
+      fs.readdir(dir, (err, files) => {
+        if (err || !files) {
+          reject(err);
         }
-        const fileName = file
-          .split('.')
-          .filter(ele => ele !== 'mdx')
-          .join('');
-
-        acc.push({ tag, fileName });
-        return acc;
-      }, []);
-
-      resolve(result);
+        
+        const result = files?.reduce((acc: TPostDir[], file: string) => {
+          if (!file) {
+            return acc;
+          }
+          const fileName = file
+            .split('.')
+            .filter(ele => ele !== 'mdx')
+            .join('');
+  
+          acc.push({ tag, fileName });
+          return acc;
+        }, []);
+  
+        resolve(result);
+      });
     });
-  });
-
-  return result;
+  
+    return result;
+  } catch (err: any) {
+    console.error(`getPostsListByTag : ${err.name} : ${err.message}`);
+    throw err;
+  }
 }
 
 export async function getPostsByQuery(
@@ -66,43 +71,50 @@ export async function getPostsByQuery(
   cursor: number = 0,
   limit: number = 10,
 ) {
-  const list = await getPostsListAll();
-  const cursorIdx = cursor * limit;
-  const limitIdx = (cursor + 1) * limit;
+  try {
+    const list = await getPostsListAll();
+    const cursorIdx = cursor * limit;
+    const limitIdx = (cursor + 1) * limit;
+  
+    const posts = await list.reduce(async (acc: Promise<TMetadata[]>, postDir: TPostDir) => {
+      const { metadata, content } = await getPost(postDir);
+      const arr = await acc;
 
-  const posts = await Promise.all(
-    await list
-      .reduce(async (acc: Promise<TMetadata[]>, postDir: TPostDir) => {
-        const { metadata, content } = await getPost(postDir);
-        const arr = await acc;
-
-        if (!metadata) {
-          return arr;
-        }
-
-        if (content.includes(query)) {
-          arr.push(metadata);
-        }
-
+      if (!metadata) {
         return arr;
-      }, Promise.resolve([]))
-    );
+      }
 
-  return posts.slice(cursorIdx, limitIdx);
+      if (content.includes(query)) {
+        arr.push(metadata);
+      }
+
+      return arr;
+    }, Promise.resolve([]));
+  
+    return posts.slice(cursorIdx, limitIdx);
+  } catch (err: any) {
+    console.error(`getPostsByQuery : ${err.name} : ${err.message}`);
+    throw err;
+  }
 }
 
 export async function getPostsListAll() {
-  const tags = await getTags();
+  try {
+    const tags = await getTags();
   
-  const list = await tags.reduce(async (acc: Promise<TPostDir[]>, tags: TTags) => {
-    const result = await getPostsListByTag(tags?.tag);
-    const arr = await acc;
-
-    arr.push(...result);
-    return arr;
-  }, Promise.resolve([]));
-
-  return list;
+    const list = await tags.reduce(async (acc: Promise<TPostDir[]>, tags: TTags) => {
+      const result = await getPostsListByTag(tags?.tag);
+      const arr = await acc;
+  
+      arr.push(...result);
+      return arr;
+    }, Promise.resolve([]));
+  
+    return list;
+  } catch (err: any) {
+    console.error(`getPostsListAll : ${err.name} : ${err.message}`);
+    throw err;
+  }
 }
 
 export async function getPost({ tag, fileName }: TPostDir): Promise<TPostResponse> {
@@ -127,9 +139,9 @@ export async function getPost({ tag, fileName }: TPostDir): Promise<TPostRespons
     }
 
     return result;
-  } catch (err) {
-    console.error(err);
-    return { metadata: null, content: '' };
+  } catch (err: any) {
+    console.error(`getPost : ${err.name} : ${err.message}`);
+    throw err;
   }
 }
 
@@ -156,9 +168,9 @@ export async function getRecentPosts(
     }
   
     return posts;
-  } catch (err) {
-    console.error(err);
-    return [];
+  } catch (err: any) {
+    console.error(`getRecentPosts : ${err.name} : ${err.message}`);
+    throw err;
   }
 }
 
@@ -186,56 +198,66 @@ export async function getPostsByTag(
     }
   
     return posts;
-  } catch (err) {
-    console.error(err);
-    return [];
+  } catch (err: any) {
+    console.error(`getPostsByTag : ${err.name} : ${err.message}`);
+    throw err;
   }
 }
 
 export async function sortByDate(list: TPostDir[]) {
-  const array = [...list];
+  try {
+    const array = [...list];
 
-  array.sort((a: TPostDir, b: TPostDir) => {
-    const a_Date = a.fileName
-      .split('-')
-      .slice(0, 3)
-      .join('-');
-    
-    const b_Date = b.fileName
-      .split('-')
-      .slice(0, 3)
-      .join('-');
-    
-    return new Date(b_Date).getTime() - new Date(a_Date).getTime();
-  });
-
-  return array;
+    array.sort((a: TPostDir, b: TPostDir) => {
+      const a_Date = a.fileName
+        .split('-')
+        .slice(0, 3)
+        .join('-');
+      
+      const b_Date = b.fileName
+        .split('-')
+        .slice(0, 3)
+        .join('-');
+      
+      return new Date(b_Date).getTime() - new Date(a_Date).getTime();
+    });
+  
+    return array;
+  } catch (err: any) {
+    console.error(`sortByDate : ${err.name} : ${err.message}`);
+    throw err;
+  }
 }
 
 export async function parseTOC(content: string) {
-  const regex = new RegExp(/(##|###)(.*$)/, 'gim');
-  const searched = content.match(regex);
-
-  if (Array.isArray(searched) && searched.length) {
-    return searched
-      .reduce((acc: TTableOfContent[], str: string) => {
-        acc.push({
-          id: '#' +
-          str
-            .replace('# ', '')
-            .replace('#', '')
-            .replace(/ /g, '-')
-            .replace(/[\[\]:!@#$/%^&*()+=,.]/g, '')
-            .replace('?', '')
-            .toLowerCase(),
-          title: str
-            .replace('### ', '')
-            .replace('## ', ''),
-          indent: str.startsWith('###') ? 1 : 0,
-        });
-        return acc;
-      }, []);
+  try {
+    const regex = new RegExp(/(##|###)(.*$)/, 'gim');
+    const searched = content.match(regex);
+  
+    if (Array.isArray(searched) && searched.length) {
+      return searched
+        .reduce((acc: TTableOfContent[], str: string) => {
+          acc.push({
+            id: '#' +
+            str
+              .replace('# ', '')
+              .replace('#', '')
+              .replace(/ /g, '-')
+              .replace(/[\[\]:!@#$/%^&*()+=,.]/g, '')
+              .replace('?', '')
+              .toLowerCase(),
+            title: str
+              .replace('### ', '')
+              .replace('## ', ''),
+            indent: str.startsWith('###') ? 1 : 0,
+          });
+          return acc;
+        }, []);
+    }
+  
+    return [];
+  } catch (err: any) {
+    console.error(`parseTOC : ${err.name} : ${err.message}`);
+    throw err;
   }
-
-  return [];
 }

@@ -24,9 +24,7 @@ export default function usePostsData(tag: string): TUsePostDataReturnType {
           }
           setPosts(res);
         })
-        .catch(() => {
-          setPosts([]);
-        })
+        .catch(() => setPosts([]))
         .finally(() => setIsLoading(false));
     }
   }, []);

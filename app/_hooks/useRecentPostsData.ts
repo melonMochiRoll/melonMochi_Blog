@@ -24,9 +24,7 @@ export default function useRecentPostsData(): TUseRecentPostsDataReturnType {
           }
           setPosts(res);
         })
-        .catch(() => {
-          setPosts([]);
-        })
+        .catch(() => setPosts([]))
         .finally(() => setIsLoading(false));
     }
   }, []);

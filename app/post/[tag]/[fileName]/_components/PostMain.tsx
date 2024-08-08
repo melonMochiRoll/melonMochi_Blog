@@ -41,7 +41,8 @@ export default function PostMain({
           components={{
             img: (props) => {
               try {
-                const { width, height } = sizeOf(props.src || '');
+                const src = join('public', props.src || '');
+                const { width, height } = sizeOf(src);
 
                 return <Image
                   src={props.src || ''}

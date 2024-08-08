@@ -41,14 +41,17 @@ export default function PostMain({
           components={{
             img: (props) => {
               try {
-                const src = join('public', props.src || '');
-                const { width, height } = sizeOf(src);
-
-                return <Image
-                  src={props.src || ''}
-                  width={width}
-                  height={height}
-                  alt={props.alt || 'image'} />
+                if (props?.src) {
+                  const src = join(process.cwd(), 'public', props.src);
+                  const { width, height } = sizeOf(src);
+  
+                  return <Image
+                    src={props.src}
+                    width={width}
+                    height={height}
+                    alt={props.alt || 'image'} />
+                }
+                return <img {...props} />
               } catch (err: any) {
                 console.error(`PostMain : ${err.name} : ${err.message}`);
                 return <img {...props} />

@@ -40,16 +40,18 @@ export default function PostMain({
           }}
           components={{
             img: (props) => {
-              if (props.src) {
-                const { width, height } = sizeOf(join('public', props.src || ''));
+              try {
+                const { width, height } = sizeOf(props.src || '');
 
                 return <Image
                   src={props.src || ''}
                   width={width}
                   height={height}
                   alt={props.alt || 'image'} />
+              } catch (err: any) {
+                console.error(`PostMain : ${err.name} : ${err.message}`);
+                return <img {...props} />
               }
-              return <img {...props} />
             }
           }}/>
         <Comments />

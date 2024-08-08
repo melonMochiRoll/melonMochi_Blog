@@ -50,6 +50,7 @@ export default function useSearch(): TUseSearchReturnType {
         }
         setPosts(res);
       })
+      .catch(() => setPosts([]))
       .finally(() => setIsLoading(false));
   };
 
@@ -61,6 +62,7 @@ export default function useSearch(): TUseSearchReturnType {
         }
         setPosts(prev => [ ...prev, ...res ]);
       })
+      .catch(() => setPosts(prev => [ ...prev ]))
       .finally(() => setIsLoading(false));
   };
 

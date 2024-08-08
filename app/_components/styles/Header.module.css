@@ -1,21 +1,31 @@
 
 .header {
+  position: relative;
   width: 100%;
-  height: 600px;
-  background-image: url('../../../public/images/main_bg.jpg');
-  background-size: cover;
-  background-position-y: center;
+  min-height: 200px;
 }
 
 @media all and (max-width: 768px) {
   .header {
     height: 25%;
-    background-image: none;
     border-bottom: 1px solid var(--border-color);
   }
 }
 
+.bgWrap {
+  position: absolute;
+  top: 0;
+  object-fit: cover;
+}
+
+@media all and (max-width: 768px) {
+  .bgWrap {
+    display: none;
+  }
+}
+
 .cover {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,12 +36,6 @@
 }
 
 [data-theme='dark'] .cover {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -46,20 +50,25 @@
 }
 
 .listInfo {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 60%;
+  width: 40%;
   height: 100%;
-  padding-bottom: 40px;
-  gap: 50px;
+  padding: 20px 0;
+  gap: 15px;
 }
 
-.title {
-  font-size: 64px;
-  font-weight: 800;
+.topSection {
+  display: flex;
+  justify-content: center;
+}
+
+.h1 {
   color: #fff;
+  font-size: 62px;
+  font-weight: 800;
   margin: 0;
 }
 
@@ -67,29 +76,30 @@
   .listInfo {
     width: 100%;
     padding: 20px;
-    justify-content: flex-start;
     gap: 20px;
   }
 
-  .title {
+  .h1 {
     font-size: 48px;
     color: var(--black);
   }
 
-  [data-theme='dark'] .title {
+  [data-theme='dark'] .h1 {
     color: #fff;
   }
 }
 
-.section {
+.bottomSection {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 20px;
 }
 
 @media all and (max-width: 768px) {
-  .section {
+  .bottomSection {
     gap: 10px;
   }
 }
@@ -98,7 +108,6 @@
   font-size: 30px;
   color: #fff;
   margin: 0;
-  padding: 20px;
 }
 
 @media all and (max-width: 768px) {

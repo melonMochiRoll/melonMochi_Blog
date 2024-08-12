@@ -2,7 +2,7 @@ import styles from '@/App/post/[tag]/[fileName]/_components/styles/PostHeader.mo
 import { TMetadata } from '@/Lib/typing';
 import CalendarIcon from '@mui/icons-material/CalendarMonthOutlined';
 import Link from 'next/link';
-import { CSSProperties } from 'react';
+import Image from 'next/image';
 
 type TPostHeaderProps = {
   metadata: TMetadata,
@@ -13,14 +13,15 @@ export default function PostHeader({
 }: TPostHeaderProps) {
   const { title, tag, thumbnail, createdAt } = metadata;
 
-  const headerStyle: CSSProperties = {
-    backgroundImage: `url(${thumbnail})`,
-  };
-
   return (
-    <header
-      style={headerStyle}
-      className={styles.header}>
+    <header className={styles.header}>
+      <Image
+        className={styles.bgWrap}
+        fill
+        alt='background'
+        src={thumbnail}
+        quality={80}
+        priority={true} />
       <div className={styles.cover}>
         <div className={styles.postInfo}>
           <Link

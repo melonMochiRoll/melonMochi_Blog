@@ -1,0 +1,83 @@
+---
+title: 소프트 딜리트가 뭔데?
+tag: Server
+description: with. TypeORM
+thumbnail: /images/thumbnail/database.png
+createdAt: 2024.11.18
+fileName: 2024-11-18-softdelete
+---
+
+## 소프트 딜리트(soft delete)란?
+
+보통 삭제라고 하면 데이터를 지워버리는 행위를 말하죠 그럼 소프트 딜리트는 뭘까요?
+소프트 딜리트는 데이터를 삭제하는 대신 삭제 된 것처럼 간주하는 방식입니다.
+즉, 물리적으로 삭제하지않고 여전히 존재하지만 삭제한것처럼 접근에 제약이 따르게되는 방법인 것입니다.
+
+## 소프트 딜리트의 특징
+
+- 사용자는 접근할수없지만 데이터 베이스에는 남아있게 됩니다.
+
+- 일반적으로 deletedAt와 같은 컬럼으로 해당 레코드가 삭제되었는지 여부를 구분합니다.
+
+- 실제로 삭제된다면 복구가 까다로워 지지만 소프트 딜리트는 deletedAt만 수정하면 되니 쉽게 복구가 가능합니다.
+
+- 데이터 베이스의 저장 공간이 줄지 않으므로 주기적인 작업이 필요합니다.
+
+## 적용
+
+![deletedAt](/images/posts/Server/softdelete/deletedAt.png)
+
+저는 deletedAt에 삭제된 시간을 저장하고 해당 레코드를 검색하는 뭐든 쿼리에 deletedAt이 null인 레코드만 검색하도록
+했고 적용자체는 그리 어렵지 않았습니다. 저 컬럼을 다시 비우면 복구된다는 의미이기도 하니 데이터 복구에 대한 걱정도
+덜어낼수 있을듯 합니다. 
+
+## TypeORM의 DeletedAt
+
+![deleteDateColumn](/images/posts/Server/softdelete/deleteDateColumn.png)
+
+TypeORM에서 엔티티를 만들때 사용할수있는 데코레이터중 하나인 DeleteDateColumn입니다. 이를 사용해 컬럼을 정의한다면
+엔티티 매니저나 레포지토리에서 사용할수있는 소프트 딜리트 메서드를 이용해 삭제한다면 해당 컬럼에 삭제된 시간을 자동으로 기록하고
+이후 레코드를 검색할때에도 소프트 딜리트된 레코드는 `deletedAt IS NULL` 와 같은 추가적인 조건을 달지않아도 알아서 검색 대상에서 제외되는것을 확인할수 있었고
+만약 삭제된 레코드를 검색하고싶다면<br/>
+`withDelete: true` 옵션을 포함해야 했습니다.
+
+## 중요한건 적용된 후
+
+사실 개념 자체는 어려운것이 아니었지만 이후 후속조치에 대해서 고민할게 많았습니다. 적용 하자마자 문제를 겪었던건<br/>
+소프트 딜리트된 레코드와 관계를 맺고있던 다른 레코드들 이었습니다. 삭제된 레코드 자체는 검색되지 않았지만 관계로 연결 되어있던
+다른 레코드들은 조인된채 여전히 검색이 되고 있었습니다. 물론 삭제된 레코드가 조인되지는 않았습니다만 이대로면 데이터 무결성에 대한
+문제가 발생할 가능성이 있어보였습니다. 때문에 삭제후 후속처리에 대해 고민하게 되었고 바로 떠오른 1안은 부모 레코드가 소프트 딜리트 될때
+자식 레코드들까지 검색 후 같이 소프트 딜리트 시키는 방법이 떠올랐고 그대로 실행하기로 했습니다.
+
+## 실제 적용은 쉽지않았다.
+
+그치만 이를 직접 자식 레코드들을 검색 후 처리하는방법보단 부모가 삭제될때 한번에 처리 할수 있을꺼같은 방법을 찾아봤는데요 TypeORM 문서에서
+그 방법을 찾을수 있었습니다. 부모 레코드에서 해당 관계를 정의할때 `cascade: true`을 적용한다면 제가 원하는 방법대로 해결할수 있을것 같았습니다.
+그러나 생각대로 되지 않았고 이 부분에 대해서는 해외 사례들의 도움을 조금 받았습니다.
+
+```javascript
+  const targetChannel = await this.channelRepository.findOne({
+    where: id = 11,
+    relations: {
+      Sharedspacemembers: true,
+      JoinRequests: true,
+    },
+  });
+
+  await this.channelRepository.softRemove(targetChannel);
+```
+
+반드시 해당 관계를 relations에 포함시킨뒤 그 엔티티를 softRemove 메서드에 넣어야만 자식 레코드들까지 소프트 딜리트가 이루어 지는것을 확인했습니다.
+그 전에 시도들은 relations를 포함한 엔티티를 매개변수로 넣지 않는다던지 정의한 조건에 부합하는 레코드를 직접 찾아 처리하는 softDelete 메서드를 사용한다면
+해당 작업이 적용되지 않았기 때문에 사소한 하지만 많은 시도를 하지 않을수 없었습니다.
+
+## 결론
+
+위 언급된 사례 뿐만 아니라 개념들은 이해하는 것 뿐만 아니라 직접 적용하고 더 나은 방법이 있는지 고민하는 자세를 갖는
+게 필요하구나 라는 것을 다시 한번 깨닫게 되었습니다. 소프트 딜리트가 그냥 이런거구나 라고 넘어갔다면 알지 못했을 작
+지만 소중한 경험이라고 생각합니다.
+
+<br/>
+참조 : <br/>
+[https://typeorm.io/many-to-many-relations#soft-deleting-a-relationship-with-cascade](https://typeorm.io/many-to-many-relations#soft-deleting-a-relationship-with-cascade)
+[https://github.com/typeorm/typeorm/issues/5877](https://github.com/typeorm/typeorm/issues/5877)

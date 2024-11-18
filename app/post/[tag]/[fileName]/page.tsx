@@ -1,7 +1,4 @@
-import fs from 'fs';
-import path from "path";
 import { notFound } from 'next/navigation';
-import matter from 'gray-matter';
 import { Suspense } from "react";
 import Loading from "@/App/post/[tag]/[fileName]/loading";
 import PostHeader from '@/App/post/[tag]/[fileName]/_components/PostHeader';

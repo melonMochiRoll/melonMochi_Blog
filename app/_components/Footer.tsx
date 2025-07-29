@@ -19,7 +19,7 @@ export default function Footer() {
           alt="Hits"
           src="https://hits.sh/melon-mochi-dev.vercel.app.svg?view=today-total&style=for-the-badge&label=VISITS&extraCount=18&color=66B3FF&labelColor=66B3FF"/>
       </a>
-      <span className={styles.copyright}>© 2024 MelonMochi's Blog. All Rights Reserved.</span>
+      <span className={styles.copyright}>© 2025 MelonMochi's Blog. All Rights Reserved.</span>
     </footer>
   );
 };

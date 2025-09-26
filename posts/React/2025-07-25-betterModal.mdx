@@ -1,0 +1,33 @@
+---
+title: 전역 모달 구현, 중첩에 대한 개선기
+tag: React
+description: 모달에 대한 고민거리를 정리해봤습니다.
+thumbnail: /images/thumbnail/react.jpg
+createdAt: 2025.07.25
+fileName: 2025-07-25-betterModal
+---
+
+## 모달이란?
+
+모달은 현대 웹 애플리케이션에서 빼놓을수 없는 요소중에 하나입니다. 특정 상호작용 요소나 컨텐츠를 담고 이를 현재 페이지 위에서
+별도의 계층으로 나타내는 UI요소를 뜻합니다. 필요한 순간에 출력해 사용자의 시선을 집중시키는 역할을 맡기도합니다.
+
+## 모달을 전역으로 구현한 이유
+
+모달을 특정 페이지나 컴포넌트 내에서 렌더링되도록 설계했을때 서로 결합, 의존하는 관계라면 모달이 해당 <span style={{color: '#00FFFF', fontWeight: 600}}>페이지의 일부
+라는 명확함</span>과 코드의 <span style={{color: '#00FFFF', fontWeight: 600}}>높은 응집도</span>를 기대할 수 있겠지만 애플리케이션이 커질수록 고민 거리도 늘어나기 시작했습니다.
+
+- 첫째, 애플리케이션 규모가 커지고 모달 사용이 늘어나면서, 각 모달이 어디서 렌더링되는지 파악하고 <span style={{color: '#FF1493', fontWeight: 600}}>관리하는데 어려움</span>이 생겼습니다.
+
+- 둘째, 한 페이지에 여러 모달이 출력될 경우, 모달 출력 로직이 늘어나면서 해당 <span style={{color: '#FF1493', fontWeight: 600}}>컴포넌트나 페이지가 비대</span>해집니다.
+
+- 셋째, 모달이 중첩될 때마다, 모달 안에 추가적인 출력 로직을 구현해야하기 때문에 컴포넌트의 <span style={{color: '#FF1493', fontWeight: 600}}>복잡도가 증가</span>합니다.
+
+위와 같은 이유로, 각 컴포넌트 내에 위치했던 모달들을 전역에서 관리하는 방식으로 변경하기로 결정하게 되었습니다.<br/>
+이는 모달 호출의 <span style={{color: '#00FFFF', fontWeight: 600}}>일관성</span>을 높이고 <span style={{color: '#00FFFF', fontWeight: 600}}>코드 중복</span>을 줄였으며, 모달의 열림/닫힘 <span style={{color: '#00FFFF', fontWeight: 600}}>상태 관리</span>를 더욱 쉽게 만들도록 하였습니다.
+
+## 모달 스택 구현 + 리덕스 툴킷
+
+```javascript
+  
+```

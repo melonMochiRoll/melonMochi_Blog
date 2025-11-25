@@ -15,6 +15,8 @@ export async function getTags() {
         if (err) {
           reject([]);
         }
+
+        files = files.filter((filesDir) => filesDir !== '_private');
         
         const numberOfPost = files.map(filesDir => {
           const postsArr = fs.readdirSync(`${dir}/${filesDir}`);
